@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Tarea IA</title>
+	
+        <script type="text/javascript" src="./js/jquery-1.6.4.min.js"></script>
+        <script type="text/javascript" src="./js/jquery.tmpl.js"></script>
+        <script type="text/javascript" src="./js/knockout-1.2.1.js"></script>
+
+
+    </head>
+    <body>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <span>Robot X:</span>
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value:robot_x"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Robot Y:</span>
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value:robot_y"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Objeto1 X:</span>
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value:objeto1_x"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Objeto1 y:</span>
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value:objeto1_y"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Objeto2 X:</span>
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value:objeto2_x"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Objeto2 y:</span>
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value:objeto2_y"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Objeto3 X:</span>
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value:objeto3_x"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Objeto3 y:</span>
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value:objeto3_y"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <span>Objeto 1</span>
+                    </td>
+                    <td>
+                        <span>Objeto 2</span>
+                    </td>
+                    <td>
+                        <span>Objeto 3</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span data-bind="text:recogido_o1"></span>
+                    </td>
+                    <td>
+                        <span data-bind="text:recogido_o2"></span>
+                    </td>
+                    <td>
+                        <span data-bind="text:recogido_o3"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button data-bind="click:function(){cargar()}">Recargar</button>
+        <table>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <button data-bind="click:function(){mover_arriba()}">arriba</button>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button data-bind="click:function(){mover_izquierda()}">Izquierda</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <button data-bind="click:function(){mover_derecha()}">derecha</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <button data-bind="click:function(){mover_abajo()}">abajo</button>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+        <div data-bind="template: {name:'cuadro', data:cuadro()}"></div>
+            
+        
+
+        <script type="text/html" id="cuadro">
+        
+            <table>
+            <tbody>
+            {{each(i, linea) c}}
+                <tr height="50px" valign="center">
+                    {{each(j, columna) linea}}
+                        <td width="50px">
+							<img width="50px" height="50px" data-bind="attr:{src:columna}">
+                        </td>
+                    {{/each}}
+                    
+                </tr>
+            {{/each}}
+            </tbody>
+            </table>
+                
+        </script>
+
+        <script type="text/javascript">
+            var cuadro = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, objeto2_y, objeto3_x, objeto3_y) {
+                this.c = new Array;
+                for(i=1; i<=4; i++){
+                    this.c[i-1] = new Array;
+                    for(j=1; j<=4; j++){
+                        this.c[i-1][j-1] = "./imagenes/vacio.jpg";
+                        var recogido = 0;
+                        if(objeto1_x == i && objeto1_y == j){
+                            this.c[i-1][j-1] = "./imagenes/objeto1.jpg";
+                            if(objeto1_x == robot_x && objeto1_y == robot_y)
+                                recogido++;
+                        }
+                        if(objeto2_x == i && objeto2_y == j){
+                            this.c[i-1][j-1] = "./imagenes/objeto2.jpg";
+                            if(objeto2_x == robot_x && objeto2_y == robot_y)
+                                recogido++;
+                        }
+                        if(objeto3_x == i && objeto3_y == j){
+                            this.c[i-1][j-1] = "./imagenes/objeto3.jpg";
+                            if(objeto3_x == robot_x && objeto3_y == robot_y)
+                                recogido++;
+                        }
+                        if(robot_x == i && robot_y == j){
+                            this.c[i-1][j-1] = "./imagenes/robot-vacio.jpg";
+                            if(recogido==1)
+								this.c[i-1][j-1] = "./imagenes/robot-1o.jpg";
+							if(recogido==2)
+								this.c[i-1][j-1] = "./imagenes/robot-2o.jpg";
+							if(recogido==3)
+								this.c[i-1][j-1] = "./imagenes/robot-3o.jpg";
+                                //this.c[i-1][j-1] = "R"+recogido;
+                        }
+                    }
+                };
+
+            };
+            
+            
+            
+            var lecturas = function() {
+            
+                this.cuadro = ko.observable();
+                this.robot_x = ko.observable(1);
+                this.robot_y = ko.observable(1);
+                this.objeto1_x = ko.observable(3);
+                this.objeto1_y = ko.observable(1);
+                this.objeto2_x = ko.observable(4);
+                this.objeto2_y = ko.observable(2);
+                this.objeto3_x = ko.observable(2);
+                this.objeto3_y = ko.observable(4);
+                this.recogido_o1 = ko.observable(false);
+                this.recogido_o2 = ko.observable(false);
+                this.recogido_o3 = ko.observable(false);
+                this.cuadro(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                //alert(ko.toJSON(this.niveles()));
+                this.cargar = function(){
+                    this.recogido_o1(false);
+                    this.recogido_o2(false);
+                    this.recogido_o3(false);
+                    this.cuadro(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                };
+                this.mover_derecha = function(){
+                    if(this.robot_y()<4&&this.verificar_orden(this.robot_x(),this.robot_y()+1)){
+                        this.robot_y(this.robot_y()+1);
+						this.mover_objetos_derecha();
+                        this.cuadro(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                        this.recoger_objeto();
+                    }
+                    else
+                        alert("no se puede mover a la derecha");
+                    
+                };
+                this.mover_izquierda = function(){
+                    if(this.robot_y()>1&&this.verificar_orden(this.robot_x(),this.robot_y()-1)){
+                        this.robot_y(this.robot_y()-1);
+						this.mover_objetos_izquierda();
+                        this.cuadro(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                        this.recoger_objeto();
+                    }
+                    else
+                        alert("no se puede mover a la izquierda");
+                };
+                this.mover_abajo = function(){
+                    if(this.robot_x()<4&&this.verificar_orden(this.robot_x()+1,this.robot_y())){
+                        this.robot_x(this.robot_x()+1);
+						this.mover_objetos_abajo();
+                        this.cuadro(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                        this.recoger_objeto();
+                    }
+                    else
+                        alert("no se puede mover a la abajo");
+                };
+                this.mover_arriba = function(){
+                    if(this.robot_x()>1&&this.verificar_orden(this.robot_x()-1,this.robot_y())){
+                    
+                        this.robot_x(this.robot_x()-1);
+						this.mover_objetos_arriba();
+                        this.cuadro(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                        this.recoger_objeto();
+                    }
+                    else
+                        alert("no se puede mover a la arriba");
+                };
+                
+                this.recoger_objeto = function(){
+                    if(!this.recogido_o1()){
+                        if(this.robot_x()==this.objeto1_x()&&this.robot_y()==this.objeto1_y())
+                        {
+                            this.recogido_o1(true);
+                            alert("recogido objeto 1");
+                        }
+					}
+                    
+					if(!this.recogido_o2()){
+						if(this.robot_x()==this.objeto2_x()&&this.robot_y()==this.objeto2_y())
+						{
+							this.recogido_o2(true);
+							alert("recogido objeto 2");
+						}
+					}
+					if(!this.recogido_o3()){
+						if(this.robot_x()==this.objeto3_x()&&this.robot_y()==this.objeto3_y())
+						{
+							this.recogido_o3(true);
+							alert("recogido objeto 3");
+						}
+					}
+                };
+				
+				this.verificar_orden = function(robot_x, robot_y){
+					if(robot_x==this.objeto2_x()&&robot_y==this.objeto2_y()&&!this.recogido_o1())
+						return false;
+					if(robot_x==this.objeto3_x()&&robot_y==this.objeto3_y()&&!this.recogido_o2())
+						return false;
+                    return true;
+                };
+				
+				this.mover_objetos_derecha = function(){
+					if(this.recogido_o1())
+						this.objeto1_y(this.objeto1_y()+1);
+					if(this.recogido_o2())
+						this.objeto2_y(this.objeto2_y()+1);
+					if(this.recogido_o3())
+						this.objeto3_y(this.objeto3_y()+1);
+                };
+				this.mover_objetos_izquiera = function(){
+					if(this.recogido_o1())
+						this.objeto1_y(this.objeto1_y()-1);
+					if(this.recogido_o2())
+						this.objeto2_y(this.objeto2_y()-1);
+					if(this.recogido_o3())
+						this.objeto3_y(this.objeto3_y()-1);
+                };
+				this.mover_objetos_arriba = function(){
+					if(this.recogido_o1())
+						this.objeto1_x(this.objeto1_x()-1);
+					if(this.recogido_o2())
+						this.objeto2_x(this.objeto2_x()-1);
+					if(this.recogido_o3())
+						this.objeto3_x(this.objeto3_x()-1);
+                };
+				this.mover_objetos_abajo = function(){
+					if(this.recogido_o1())
+						this.objeto1_x(this.objeto1_x()+1);
+					if(this.recogido_o2())
+						this.objeto2_x(this.objeto2_x()+1);
+					if(this.recogido_o3())
+						this.objeto3_x(this.objeto3_x()+1);
+                };
+               
+            };
+             
+            var lectViewModel = new lecturas();
+            ko.applyBindings(lectViewModel);
+        </script>
+    </body>
+</html>
+
