@@ -142,7 +142,7 @@
 		        </table>
 		    </div>
 		    <div id="tablero">
-	           <div data-bind="template: {name:'cuadro', data:cuadro()}"></div>
+	           <div data-bind="template: {name:'cuadro', data:cuadro_visible()}"></div>
 	        </div>
 	        
         
@@ -208,7 +208,7 @@
 
             };
             
-            var cuadro = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, objeto2_y, objeto3_x, objeto3_y,recogido_o1,recogido_o2,recogido_o3, altura, expadido) {
+            var cuadro = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, objeto2_y, objeto3_x, objeto3_y,recogido_o1,recogido_o2,recogido_o3, altura, expandido) {
                 
                 this.robot_x = robot_x;
                 this.robot_y = robot_y;
@@ -222,7 +222,7 @@
                 this.recogido_o2 = recogido_o2;
                 this.recogido_o3 = recogido_o3;
                 this.altura = altura;
-                this.expadido = expandido;
+                this.expandido = expandido;
             };
             
             
@@ -230,6 +230,7 @@
             var lecturas = function() {
             
                 this.cuadro_visible = ko.observable();
+                this.cuadro_inicial = ko.observable();
                 this.robot_x = ko.observable(1);
                 this.robot_y = ko.observable(1);
                 this.objeto1_x = ko.observable(3);
