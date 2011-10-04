@@ -1,6 +1,19 @@
-* { margin: 0; }
-  html, body { height: 100%;}
-  /* El margin-bottom de container es el valor negativo de la altura del footer */ 
+ * {    
+ margin: 0;  
+}  
+html, body {  
+    height: 100%;  
+}  
+#container {  
+    min-height: 100%;  
+    height: auto !important;  
+    height: 100%;  
+    margin: 0 auto -40px; /* el margin del bottom debe ser el mismo valor que el alto del footer pero en negativo */  
+}
+
+.footer, .push {  
+    height: 40px; /* .push debe ser el mismo alto que .footer */  
+}  
 
 body{
 	background-image: linear-gradient(bottom, rgb(156,163,151) 43%, rgb(192,199,179) 68%);
@@ -10,13 +23,9 @@ body{
 	background-image: -ms-linear-gradient(bottom, rgb(156,163,151) 43%, rgb(192,199,179) 68%);
 }
 
-#container { min-height: 100%; height: auto !important; height: 100%; 
-		   margin: 0 auto -4em; text-align: center; width: 100%}
-/* .push debe tener la misma altura que footer */
-#footer, .push { height: 4em; clear:both; }	
 
 #header{
-    margin-bottom: 2.9%;
+    margin-bottom: 1.5%;
 }
 
 table#tablarobot{
