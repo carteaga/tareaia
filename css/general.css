@@ -6,22 +6,29 @@
 		   margin: 0 auto -4em;  }
 /* .push debe tener la misma altura que footer */
 #footer, .push { height: 4em; clear:both; }	
-  
-#tablerorobot {
-	float: right;
-	
+
+#tablarobot table{
+	width: 100%
 }
 
-#tablarobot{
-	width: 450px;
-	height: 450px;
-	border: 1px solid;
+#tablarobot td{
+	width: 300px;
 }
 
-#tablarobot tbody td{
-	border: 1px solid;
+#tablarobot th{
 }
 
-#tablarobot tbody tr{
-	border: 1px solid;
+#tablero{
+	display:inline;
+    float: left;
+    position: relative;
+    width: 60%;
+
+}
+
+#dashboard{
+	display:inline;
+    float: left;
+    position: relative;
+    width: 40%;
 }
