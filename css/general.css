@@ -1,0 +1,27 @@
+* { margin: 0; }
+  html, body { height: 100%; }
+  /* El margin-bottom de container es el valor negativo de la altura del footer */ 
+  
+#container { min-height: 100%; height: auto !important; height: 100%; 
+		   margin: 0 auto -4em;  }
+/* .push debe tener la misma altura que footer */
+#footer, .push { height: 4em; clear:both; }	
+  
+#tablerorobot {
+	float: right;
+	
+}
+
+#tablarobot{
+	width: 450px;
+	height: 450px;
+	border: 1px solid;
+}
+
+#tablarobot tbody td{
+	border: 1px solid;
+}
+
+#tablarobot tbody tr{
+	border: 1px solid;
+}
