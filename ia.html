@@ -171,7 +171,7 @@
             Integrantes: César Toro - Cristian Arteaga
         </div>
         <script type="text/javascript">
-            var cuadro = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, objeto2_y, objeto3_x, objeto3_y) {
+            var cuadro_visual = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, objeto2_y, objeto3_x, objeto3_y) {
                 this.c = new Array;
                 for(i=1; i<=4; i++){
                     this.c[i-1] = new Array;
@@ -208,11 +208,28 @@
 
             };
             
+            var cuadro = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, objeto2_y, objeto3_x, objeto3_y,recogido_o1,recogido_o2,recogido_o3, altura, expadido) {
+                
+                this.robot_x = robot_x;
+                this.robot_y = robot_y;
+                this.objeto1_x = objeto1_x;
+                this.objeto1_y = objeto1_y;
+                this.objeto2_x = objeto2_x;
+                this.objeto2_y = objeto2_y;
+                this.objeto3_x = objeto3_x;
+                this.objeto3_y = objeto3_y;
+                this.recogido_o1 = recogido_o1;
+                this.recogido_o2 = recogido_o2;
+                this.recogido_o3 = recogido_o3;
+                this.altura = altura;
+                this.expadido = expandido;
+            };
+            
             
             
             var lecturas = function() {
             
-                this.cuadro = ko.observable();
+                this.cuadro_visible = ko.observable();
                 this.robot_x = ko.observable(1);
                 this.robot_y = ko.observable(1);
                 this.objeto1_x = ko.observable(3);
@@ -224,19 +241,20 @@
                 this.recogido_o1 = ko.observable(false);
                 this.recogido_o2 = ko.observable(false);
                 this.recogido_o3 = ko.observable(false);
-                this.cuadro(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                this.cuadro_visible(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                this.cuadro_inicial(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y(),this.recogido_o1(),this.recogido_o2(),this.recogido_o2(),0,false));
                 //alert(ko.toJSON(this.niveles()));
                 this.cargar = function(){
                     this.recogido_o1(false);
                     this.recogido_o2(false);
                     this.recogido_o3(false);
-                    this.cuadro(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                    this.cuadro(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
                 };
                 this.mover_derecha = function(){
                     if(this.robot_y()<4&&this.verificar_orden(this.robot_x(),this.robot_y()+1)){
                         this.robot_y(this.robot_y()+1);
 						this.mover_objetos_derecha();
-                        this.cuadro(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                        this.cuadro_visible(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
                         this.recoger_objeto();
                     }
                     else
@@ -247,7 +265,7 @@
                     if(this.robot_y()>1&&this.verificar_orden(this.robot_x(),this.robot_y()-1)){
                         this.robot_y(this.robot_y()-1);
 						this.mover_objetos_izquierda();
-                        this.cuadro(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                        this.cuadro_visible(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
                         this.recoger_objeto();
                     }
                     else
@@ -257,7 +275,7 @@
                     if(this.robot_x()<4&&this.verificar_orden(this.robot_x()+1,this.robot_y())){
                         this.robot_x(this.robot_x()+1);
 						this.mover_objetos_abajo();
-                        this.cuadro(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                        this.cuadro_visible(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
                         this.recoger_objeto();
                     }
                     else
@@ -268,7 +286,7 @@
                     
                         this.robot_x(this.robot_x()-1);
 						this.mover_objetos_arriba();
-                        this.cuadro(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+                        this.cuadro_visible(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
                         this.recoger_objeto();
                     }
                     else
