@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"></meta>
         <title>Tarea IA</title>
         
         <link rel="stylesheet" href="./css/general.css" />  
-         
+        <link rel="stylesheet" href="./css/fluid_grid.css" />  
         <script type="text/javascript" src="./js/jquery-1.6.4.min.js"></script>
         <script type="text/javascript" src="./js/jquery.tmpl.js"></script>
         <script type="text/javascript" src="./js/knockout-1.2.1.js"></script>
@@ -14,115 +14,90 @@
     </head>
     <body>
         <div id="container">
-            <div id="dashboard">
-		        <table>
+            <div id="header" >
+                <center><h1>Trabajo de IA </h1></center>
+            </div>
+            <div class="container_12">
+            <div id="dashboard" class="grid_3">
+		        <table >
 		            <tbody>
 		                <tr>
 		                    <td>
-		                        <span>Robot X:</span>
+		                        <span class="spantext">Robot X:</span>
 		                    </td>
 		                    <td>
-		                        <input type="text" data-bind="value:robot_x"/>
+		                      <input type="text" class="inputform" data-bind="value:robot_x"/>
 		                    </td>
+		                    <td>
+		                      <input type="text" class="inputform" data-bind="value:robot_y"/>
+		                    </td>
+
+		                </tr>
+		                <tr>
 		                </tr>
 		                <tr>
 		                    <td>
-		                        <span>Robot Y:</span>
+		                        <span class="spantext">Objeto1 X:</span>
 		                    </td>
 		                    <td>
-		                        <input type="text" data-bind="value:robot_y"/>
+		                        <input type="text" class="inputform" data-bind="value:objeto1_x"/>
 		                    </td>
+		                      
+		                    <td>
+		                      <input type="text" class="inputform" data-bind="value:objeto1_y"/>
+		                    </td>
+		                    <td><span data-bind=' visible: recogido_o1'>[IMG]</span></td>
 		                </tr>
+		                
 		                <tr>
 		                    <td>
-		                        <span>Objeto1 X:</span>
+		                        <span class="spantext">Objeto2 X:</span>
 		                    </td>
 		                    <td>
-		                        <input type="text" data-bind="value:objeto1_x"/>
+		                        <input type="text" class="inputform" data-bind="value:objeto2_x"/>
 		                    </td>
+		                    <td>
+                                <input type="text" class="inputform" data-bind="value:objeto2_y"/>
+                            </td>
+                            <td><span data-bind=' visible: recogido_o2'>[IMG]</span></td>
 		                </tr>
+		                
 		                <tr>
 		                    <td>
-		                        <span>Objeto1 y:</span>
+		                        <span class="spantext">Objeto3 X:</span>
 		                    </td>
+		                    
+
 		                    <td>
-		                        <input type="text" data-bind="value:objeto1_y"/>
-		                    </td>
-		                </tr>
-		                <tr>
-		                    <td>
-		                        <span>Objeto2 X:</span>
-		                    </td>
-		                    <td>
-		                        <input type="text" data-bind="value:objeto2_x"/>
-		                    </td>
-		                </tr>
-		                <tr>
-		                    <td>
-		                        <span>Objeto2 y:</span>
-		                    </td>
-		                    <td>
-		                        <input type="text" data-bind="value:objeto2_y"/>
-		                    </td>
-		                </tr>
-		                <tr>
-		                    <td>
-		                        <span>Objeto3 X:</span>
-		                    </td>
-		                    <td>
-		                        <input type="text" data-bind="value:objeto3_x"/>
-		                    </td>
-		                </tr>
-		                <tr>
-		                    <td>
-		                        <span>Objeto3 y:</span>
-		                    </td>
-		                    <td>
-		                        <input type="text" data-bind="value:objeto3_y"/>
-		                    </td>
+                              <input type="text" class="inputform" data-bind="value:objeto3_x"/>
+                            </td>    
+                            <td>
+                                <input type="text" class="inputform" data-bind="value:objeto3_y"/>
+                            </td>
+                            <td><span data-bind=' visible: recogido_o3'>[IMG]</span></td>
 		                </tr>
 		            </tbody>
 		        </table>
-		        <table border="1">
-		            <tbody>
-		                <tr>
-		                    <td>
-		                        <span>Objeto 1</span>
-		                    </td>
-		                    <td>
-		                        <span>Objeto 2</span>
-		                    </td>
-		                    <td>
-		                        <span>Objeto 3</span>
-		                    </td>
-		                </tr>
-		                <tr>
-		                    <td>
-		                        <span data-bind="text:recogido_o1"></span>
-		                    </td>
-		                    <td>
-		                        <span data-bind="text:recogido_o2"></span>
-		                    </td>
-		                    <td>
-		                        <span data-bind="text:recogido_o3"></span>
-		                    </td>
-		                </tr>
-		            </tbody>
-		        </table>
+
                 <select data-bind='options: metodos, optionsValue:"opcion", optionsText:"metodo", value: metodoSeleccionado'></select>
+
 		        <button data-bind="click:function(){cargar()}">Recargar</button>
 		        <button data-bind="click:function(){solucion()}">Solucion</button>
 
 		    </div>
-		    <div id="tablero">
-	           <div data-bind="template: {name:'cuadro', data:cuadro_visible()}"></div>
+		    <div class="grid_6">
+	           <div data-bind="template: {name:'cuadro', data:cuadro_visible()}" id="tablero"></div>
+	           <br/>
+	           <center><a class="button pequeno rojo" href="#"><span>START !</span></a></center>
 	        </div>
-	        
-        
+	        <div id="log" class="grid_3">
+	           <textarea rows="28" cols="35"></textarea>
+	        </div>
+            </div>
 
             <script type="text/html" id="cuadro">
         
-                <table id="tablarobot">
+                <table id="tablarobot" align="center">
                 <tbody>
                 {{each(i, linea) c}}
                     <tr>
@@ -157,40 +132,41 @@
                 }
             }	
             var cuadro_visual = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, objeto2_y, objeto3_x, objeto3_y,recogido_o1,recogido_o2,recogido_o3) {
-                this.robot_x = robot_x;
-                this.robot_y = robot_y;
-                this.objeto1_x = objeto1_x;
-                this.objeto1_y = objeto1_y;
-                this.objeto2_x = objeto2_x;
-                this.objeto2_y = objeto2_y;
-                this.objeto3_x = objeto3_x;
-                this.objeto3_y = objeto3_y;
-                this.recogido_o1 = recogido_o1;
-                this.recogido_o2 = recogido_o2;
-                this.recogido_o3 = recogido_o3;
+                this.robot_x = ko.observable(robot_x);
+                this.robot_y = ko.observable(robot_y);
+                this.objeto1_x = ko.observable(objeto1_x);
+                this.objeto1_y = ko.observable(objeto1_y);
+                this.objeto2_x = ko.observable(objeto2_x);
+                this.objeto2_y = ko.observable(objeto2_y);
+                this.objeto3_x = ko.observable(objeto3_x);
+                this.objeto3_y = ko.observable(objeto3_y);
+                this.recogido_o1 = ko.observable(recogido_o1);
+                this.recogido_o2 = ko.observable(recogido_o2);
+                this.recogido_o3 = ko.observable(recogido_o3);
                 this.c = ko.dependentObservable(function(){
+                    console.log("dependentObservable");
                     var c = new Array;
                     for(i=1; i<=4; i++){
                         c[i-1] = new Array;
                         for(j=1; j<=4; j++){
                             c[i-1][j-1] = "./imagenes/vacio.jpg";
                             var recogido = 0;
-                            if(this.objeto1_x == i && this.objeto1_y == j){
+                            if(this.objeto1_x() == i && this.objeto1_y() == j){
                                 c[i-1][j-1] = "./imagenes/objeto1.jpg";
-                                if(this.recogido_o1)
+                                if(this.recogido_o1())
                                     recogido++;
                             }
-                            if(this.objeto2_x == i && this.objeto2_y == j){
+                            if(this.objeto2_x() == i && this.objeto2_y() == j){
                                 c[i-1][j-1] = "./imagenes/objeto2.jpg";
-                                if(this.recogido_o2)
+                                if(this.recogido_o2())
                                     recogido++;
                             }
-                            if(objeto3_x == i && objeto3_y == j){
+                            if(this.objeto3_x() == i && this.objeto3_y() == j){
                                 c[i-1][j-1] = "./imagenes/objeto3.jpg";
-                                if(this.recogido_o3)
+                                if(this.recogido_o3())
                                     recogido++;
                             }
-                            if(this.robot_x == i && this.robot_y == j){
+                            if(this.robot_x() == i && this.robot_y() == j){
                                 c[i-1][j-1] = "./imagenes/robot-vacio.jpg";
                                 if(recogido==1)
                                     c[i-1][j-1] = "./imagenes/robot-1o.jpg";
@@ -286,8 +262,8 @@
                         //alert(ko.toJSON(this.arbol()));
                     }
                     
-                    this.mostrar_solucion();
                     alert(ko.toJSON(this.ruta_solucion()));
+                    this.mostrar_solucion();
                 };
                 
                 this.mostrar_solucion = function(){
@@ -295,25 +271,55 @@
                     for(var i=0;i<largo;i++){
                         if(this.ruta_solucion()[i]==1){
                             //mover a al norte
-                            this.cuadro_visible().robot_x=this.cuadro_visible().robot_x-1;
-                            this.cuadro_visible(new cuadro_visual(this.cuadro_visible().robot_x,this.cuadro_visible().robot_y,this.cuadro_visible().objeto1_x,this.cuadro_visible().objeto1_y,this.cuadro_visible().objeto2_x,this.cuadro_visible().objeto2_y, this.cuadro_visible().objeto3_x, this.cuadro_visible().objeto3_y));
+                            this.cuadro_visible().robot_x(this.cuadro_visible().robot_x()-1);
+                            this.recoger_objeto(this.cuadro_visible());
+                            
+                            if(this.cuadro_visible().recogido_o1())
+                                this.cuadro_visible().objeto1_x(this.cuadro_visible().objeto1_x()-1);
+                            if(this.cuadro_visible().recogido_o2())
+                                this.cuadro_visible().objeto2_x(this.cuadro_visible().objeto2_x()-1);
+                            if(this.cuadro_visible().recogido_o3())
+                                this.cuadro_visible().objeto3_x(this.cuadro_visible().objeto3_x()-1);
                         }
                         if(this.ruta_solucion()[i]==2){
                             //mover a al Sur
-                            this.cuadro_visible().robot_x=this.cuadro_visible().robot_x+1;
-                            this.cuadro_visible(new cuadro_visual(this.cuadro_visible().robot_x,this.cuadro_visible().robot_y,this.cuadro_visible().objeto1_x,this.cuadro_visible().objeto1_y,this.cuadro_visible().objeto2_x,this.cuadro_visible().objeto2_y, this.cuadro_visible().objeto3_x, this.cuadro_visible().objeto3_y));
+                            this.cuadro_visible().robot_x(this.cuadro_visible().robot_x()+1);
+                            this.recoger_objeto(this.cuadro_visible());
+                            
+                            if(this.cuadro_visible().recogido_o1())
+                                this.cuadro_visible().objeto1_x(this.cuadro_visible().objeto1_x()+1);
+                            if(this.cuadro_visible().recogido_o2())
+                                this.cuadro_visible().objeto2_x(this.cuadro_visible().objeto2_x()+1);
+                            if(this.cuadro_visible().recogido_o3())
+                                this.cuadro_visible().objeto3_x(this.cuadro_visible().objeto3_x()+1);
                         }
                         if(this.ruta_solucion()[i]==3){
                             //mover a al Este
-                            this.cuadro_visible().robot_y=this.cuadro_visible().robot_y+1;
-                            this.cuadro_visible(new cuadro_visual(this.cuadro_visible().robot_x,this.cuadro_visible().robot_y,this.cuadro_visible().objeto1_x,this.cuadro_visible().objeto1_y,this.cuadro_visible().objeto2_x,this.cuadro_visible().objeto2_y, this.cuadro_visible().objeto3_x, this.cuadro_visible().objeto3_y));
+                            this.cuadro_visible().robot_y(this.cuadro_visible().robot_y()+1);
+                            this.recoger_objeto(this.cuadro_visible());
+                            
+                            if(this.cuadro_visible().recogido_o1())
+                                this.cuadro_visible().objeto1_y(this.cuadro_visible().objeto1_y()+1);
+                            if(this.cuadro_visible().recogido_o2())
+                                this.cuadro_visible().objeto2_y(this.cuadro_visible().objeto2_y()+1);
+                            if(this.cuadro_visible().recogido_o3())
+                                this.cuadro_visible().objeto3_y(this.cuadro_visible().objeto3_y()+1);
                         }
                         if(this.ruta_solucion()[i]==4){
                             //mover a al Oeste
-                            this.cuadro_visible().robot_y=this.cuadro_visible().robot_y-1;
-                            this.cuadro_visible(new cuadro_visual(this.cuadro_visible().robot_x,this.cuadro_visible().robot_y,this.cuadro_visible().objeto1_x,this.cuadro_visible().objeto1_y,this.cuadro_visible().objeto2_x,this.cuadro_visible().objeto2_y, this.cuadro_visible().objeto3_x, this.cuadro_visible().objeto3_y));
+                            this.cuadro_visible().robot_y(this.cuadro_visible().robot_y()-1);
+                            this.recoger_objeto(this.cuadro_visible());
+                            
+                            if(this.cuadro_visible().recogido_o1())
+                                this.cuadro_visible().objeto1_y(this.cuadro_visible().objeto1_y()-1);
+                            if(this.cuadro_visible().recogido_o2())
+                                this.cuadro_visible().objeto2_y(this.cuadro_visible().objeto2_y()-1);
+                            if(this.cuadro_visible().recogido_o3())
+                                this.cuadro_visible().objeto3_y(this.cuadro_visible().objeto3_y()-1);
                         }
-                        pause(500);
+                        //
+                        console.log(i);
+                        pause(1500);
                     };
                 };
                 
