@@ -269,10 +269,11 @@
                 this.mostrar_solucion = function(){
                     var largo = this.ruta_solucion().length;
                     for(var i=0;i<largo;i++){
+                        
                         if(this.ruta_solucion()[i]==1){
                             //mover a al norte
                             this.cuadro_visible().robot_x(this.cuadro_visible().robot_x()-1);
-                            this.recoger_objeto(this.cuadro_visible());
+                            this.recoger_objeto_visible(this.cuadro_visible());
                             
                             if(this.cuadro_visible().recogido_o1())
                                 this.cuadro_visible().objeto1_x(this.cuadro_visible().objeto1_x()-1);
@@ -284,7 +285,7 @@
                         if(this.ruta_solucion()[i]==2){
                             //mover a al Sur
                             this.cuadro_visible().robot_x(this.cuadro_visible().robot_x()+1);
-                            this.recoger_objeto(this.cuadro_visible());
+                            this.recoger_objeto_visible(this.cuadro_visible());
                             
                             if(this.cuadro_visible().recogido_o1())
                                 this.cuadro_visible().objeto1_x(this.cuadro_visible().objeto1_x()+1);
@@ -296,7 +297,7 @@
                         if(this.ruta_solucion()[i]==3){
                             //mover a al Este
                             this.cuadro_visible().robot_y(this.cuadro_visible().robot_y()+1);
-                            this.recoger_objeto(this.cuadro_visible());
+                            this.recoger_objeto_visible(this.cuadro_visible());
                             
                             if(this.cuadro_visible().recogido_o1())
                                 this.cuadro_visible().objeto1_y(this.cuadro_visible().objeto1_y()+1);
@@ -308,7 +309,7 @@
                         if(this.ruta_solucion()[i]==4){
                             //mover a al Oeste
                             this.cuadro_visible().robot_y(this.cuadro_visible().robot_y()-1);
-                            this.recoger_objeto(this.cuadro_visible());
+                            this.recoger_objeto_visible(this.cuadro_visible());
                             
                             if(this.cuadro_visible().recogido_o1())
                                 this.cuadro_visible().objeto1_y(this.cuadro_visible().objeto1_y()-1);
@@ -319,8 +320,23 @@
                         }
                         //
                         console.log(i);
-                        pause(1500);
+                        pause(500);
                     };
+                    alert(ko.toJSON(this.cuadro_visible()));
+                };
+                
+                this.recoger_objeto_visible = function(cuadro){
+                    if(!cuadro.recogido_o1())
+                        if(cuadro.robot_x()==cuadro.objeto1_x()&&cuadro.robot_y()==cuadro.objeto1_y())
+                            cuadro.recogido_o1(true);
+                            
+                    if(!cuadro.recogido_o2())
+                        if(cuadro.robot_x()==cuadro.objeto2_x()&&cuadro.robot_y()==cuadro.objeto2_y())
+                            cuadro.recogido_o2(true);
+                            
+                    if(!cuadro.recogido_o3())
+                        if(cuadro.robot_x()==cuadro.objeto3_x()&&cuadro.robot_y()==cuadro.objeto3_y())
+                            cuadro.recogido_o3(true);
                 };
                 
                 this.terminado = function(){
