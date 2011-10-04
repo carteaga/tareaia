@@ -15,6 +15,10 @@ background-image: -ms-linear-gradient(bottom, rgb(156,163,151) 43%, rgb(192,199,
 /* .push debe tener la misma altura que footer */
 #footer, .push { height: 4em; clear:both; }	
 
+#header{
+    margin-bottom: 2.9%;
+}
+
 table#tablarobot{
 	border: 1px solid;
 	width:  400px;
