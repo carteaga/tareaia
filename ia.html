@@ -19,100 +19,66 @@
             </div>
             <div class="container_12">
             <div id="dashboard" class="grid_3">
-		        <table>
+		        <table >
 		            <tbody>
 		                <tr>
 		                    <td>
-		                        <span>Robot X:</span>
+		                        <span class="spantext">Robot X:</span>
 		                    </td>
 		                    <td>
-		                        <input type="text" data-bind="value:robot_x"/>
+		                      <input type="text" class="inputform" data-bind="value:robot_x"/>
 		                    </td>
+		                    <td>
+		                      <input type="text" class="inputform" data-bind="value:robot_y"/>
+		                    </td>
+
+		                </tr>
+		                <tr>
 		                </tr>
 		                <tr>
 		                    <td>
-		                        <span>Robot Y:</span>
+		                        <span class="spantext">Objeto1 X:</span>
 		                    </td>
 		                    <td>
-		                        <input type="text" data-bind="value:robot_y"/>
+		                        <input type="text" class="inputform" data-bind="value:objeto1_x"/>
 		                    </td>
+		                      
+		                    <td>
+		                      <input type="text" class="inputform" data-bind="value:objeto1_y"/>
+		                    </td>
+		                    <td><span data-bind=' visible: recogido_o1'>[IMG]</span></td>
 		                </tr>
+		                
 		                <tr>
 		                    <td>
-		                        <span>Objeto1 X:</span>
+		                        <span class="spantext">Objeto2 X:</span>
 		                    </td>
 		                    <td>
-		                        <input type="text" data-bind="value:objeto1_x"/>
+		                        <input type="text" class="inputform" data-bind="value:objeto2_x"/>
 		                    </td>
+		                    <td>
+                                <input type="text" class="inputform" data-bind="value:objeto2_y"/>
+                            </td>
+                            <td><span data-bind=' visible: recogido_o2'>[IMG]</span></td>
 		                </tr>
+		                
 		                <tr>
 		                    <td>
-		                        <span>Objeto1 y:</span>
+		                        <span class="spantext">Objeto3 X:</span>
 		                    </td>
+		                    
+
 		                    <td>
-		                        <input type="text" data-bind="value:objeto1_y"/>
-		                    </td>
-		                </tr>
-		                <tr>
-		                    <td>
-		                        <span>Objeto2 X:</span>
-		                    </td>
-		                    <td>
-		                        <input type="text" data-bind="value:objeto2_x"/>
-		                    </td>
-		                </tr>
-		                <tr>
-		                    <td>
-		                        <span>Objeto2 y:</span>
-		                    </td>
-		                    <td>
-		                        <input type="text" data-bind="value:objeto2_y"/>
-		                    </td>
-		                </tr>
-		                <tr>
-		                    <td>
-		                        <span>Objeto3 X:</span>
-		                    </td>
-		                    <td>
-		                        <input type="text" data-bind="value:objeto3_x"/>
-		                    </td>
-		                </tr>
-		                <tr>
-		                    <td>
-		                        <span>Objeto3 y:</span>
-		                    </td>
-		                    <td>
-		                        <input type="text" data-bind="value:objeto3_y"/>
-		                    </td>
+                              <input type="text" class="inputform" data-bind="value:objeto3_x"/>
+                            </td>    
+                            <td>
+                                <input type="text" class="inputform" data-bind="value:objeto3_y"/>
+                            </td>
+                            <td><span data-bind=' visible: recogido_o3'>[IMG]</span></td>
 		                </tr>
 		            </tbody>
 		        </table>
-		        <table border="1">
-		            <tbody>
-		                <tr>
-		                    <td>
-		                        <span>Objeto 1</span>
-		                    </td>
-		                    <td>
-		                        <span>Objeto 2</span>
-		                    </td>
-		                    <td>
-		                        <span>Objeto 3</span>
-		                    </td>
-		                </tr>
-		                <tr>
-		                    <td>
-		                        <span data-bind="text:recogido_o1"></span>
-		                    </td>
-		                    <td>
-		                        <span data-bind="text:recogido_o2"></span>
-		                    </td>
-		                    <td>
-		                        <span data-bind="text:recogido_o3"></span>
-		                    </td>
-		                </tr>
-		            </tbody>
-		        </table>
+		    
 		        <button data-bind="click:function(){cargar()}">Recargar</button>
 		        <table>
 		            <tr>
