@@ -17,8 +17,8 @@ background-image: -ms-linear-gradient(bottom, rgb(156,163,151) 43%, rgb(192,199,
 
 table#tablarobot{
 	border: 1px solid;
-	width: 300px;
-	height: 300px;
+	width: 500px;
+	height: 500px;
 }
 
 #tablarobot td{
@@ -27,8 +27,8 @@ table#tablarobot{
 }
 
 #img{
-	width: 200px;
-	height: 200px;
+	width: 125px;
+	height: 125px;
 }
 #tablarobot tr{
     width: 50px;
