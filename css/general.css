@@ -71,6 +71,17 @@ table#tablarobot{
 
 }
 
+
+/* dasboard form */
+
+.inputform{
+	 width: 60px;
+}
+
+.spantext{
+	float: right;
+}
+
 /*  BOTONES CON CSS */
 
 .button, .button span {
