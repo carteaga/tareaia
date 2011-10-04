@@ -3,167 +3,173 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>Tarea IA</title>
-	
+        
+        <link rel="stylesheet" href="./css/general.css" />  
+         
         <script type="text/javascript" src="./js/jquery-1.6.4.min.js"></script>
         <script type="text/javascript" src="./js/jquery.tmpl.js"></script>
         <script type="text/javascript" src="./js/knockout-1.2.1.js"></script>
-
+        
 
     </head>
     <body>
         <div id="container">
-	        <table>
-	            <tbody>
-	                <tr>
-	                    <td>
-	                        <span>Robot X:</span>
-	                    </td>
-	                    <td>
-	                        <input type="text" data-bind="value:robot_x"/>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td>
-	                        <span>Robot Y:</span>
-	                    </td>
-	                    <td>
-	                        <input type="text" data-bind="value:robot_y"/>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td>
-	                        <span>Objeto1 X:</span>
-	                    </td>
-	                    <td>
-	                        <input type="text" data-bind="value:objeto1_x"/>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td>
-	                        <span>Objeto1 y:</span>
-	                    </td>
-	                    <td>
-	                        <input type="text" data-bind="value:objeto1_y"/>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td>
-	                        <span>Objeto2 X:</span>
-	                    </td>
-	                    <td>
-	                        <input type="text" data-bind="value:objeto2_x"/>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td>
-	                        <span>Objeto2 y:</span>
-	                    </td>
-	                    <td>
-	                        <input type="text" data-bind="value:objeto2_y"/>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td>
-	                        <span>Objeto3 X:</span>
-	                    </td>
-	                    <td>
-	                        <input type="text" data-bind="value:objeto3_x"/>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td>
-	                        <span>Objeto3 y:</span>
-	                    </td>
-	                    <td>
-	                        <input type="text" data-bind="value:objeto3_y"/>
-	                    </td>
-	                </tr>
-	            </tbody>
-	        </table>
-	        <table border="1">
-	            <tbody>
-	                <tr>
-	                    <td>
-	                        <span>Objeto 1</span>
-	                    </td>
-	                    <td>
-	                        <span>Objeto 2</span>
-	                    </td>
-	                    <td>
-	                        <span>Objeto 3</span>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td>
-	                        <span data-bind="text:recogido_o1"></span>
-	                    </td>
-	                    <td>
-	                        <span data-bind="text:recogido_o2"></span>
-	                    </td>
-	                    <td>
-	                        <span data-bind="text:recogido_o3"></span>
-	                    </td>
-	                </tr>
-	            </tbody>
-	        </table>
-	        <button data-bind="click:function(){cargar()}">Recargar</button>
-	        <table>
-	            <tr>
-	                <td>
-	                </td>
-	                <td>
-	                    <button data-bind="click:function(){mover_arriba()}">arriba</button>
-	                </td>
-	                <td>
-	                </td>
-	            </tr>
-	            <tr>
-	                <td>
-	                    <button data-bind="click:function(){mover_izquierda()}">Izquierda</button>
-	                </td>
-	                <td>
-	                </td>
-	                <td>
-	                    <button data-bind="click:function(){mover_derecha()}">derecha</button>
-	                </td>
-	            </tr>
-	            <tr>
-	                <td>
-	                </td>
-	                <td>
-	                    <button data-bind="click:function(){mover_abajo()}">abajo</button>
-	                </td>
-	                <td>
-	                </td>
-	            </tr>
-	        </table>
-	        <div data-bind="template: {name:'cuadro', data:cuadro()}"></div>
-	        <div id="push"></div>
+            <div id="dashboard">
+		        <table>
+		            <tbody>
+		                <tr>
+		                    <td>
+		                        <span>Robot X:</span>
+		                    </td>
+		                    <td>
+		                        <input type="text" data-bind="value:robot_x"/>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td>
+		                        <span>Robot Y:</span>
+		                    </td>
+		                    <td>
+		                        <input type="text" data-bind="value:robot_y"/>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td>
+		                        <span>Objeto1 X:</span>
+		                    </td>
+		                    <td>
+		                        <input type="text" data-bind="value:objeto1_x"/>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td>
+		                        <span>Objeto1 y:</span>
+		                    </td>
+		                    <td>
+		                        <input type="text" data-bind="value:objeto1_y"/>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td>
+		                        <span>Objeto2 X:</span>
+		                    </td>
+		                    <td>
+		                        <input type="text" data-bind="value:objeto2_x"/>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td>
+		                        <span>Objeto2 y:</span>
+		                    </td>
+		                    <td>
+		                        <input type="text" data-bind="value:objeto2_y"/>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td>
+		                        <span>Objeto3 X:</span>
+		                    </td>
+		                    <td>
+		                        <input type="text" data-bind="value:objeto3_x"/>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td>
+		                        <span>Objeto3 y:</span>
+		                    </td>
+		                    <td>
+		                        <input type="text" data-bind="value:objeto3_y"/>
+		                    </td>
+		                </tr>
+		            </tbody>
+		        </table>
+		        <table border="1">
+		            <tbody>
+		                <tr>
+		                    <td>
+		                        <span>Objeto 1</span>
+		                    </td>
+		                    <td>
+		                        <span>Objeto 2</span>
+		                    </td>
+		                    <td>
+		                        <span>Objeto 3</span>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td>
+		                        <span data-bind="text:recogido_o1"></span>
+		                    </td>
+		                    <td>
+		                        <span data-bind="text:recogido_o2"></span>
+		                    </td>
+		                    <td>
+		                        <span data-bind="text:recogido_o3"></span>
+		                    </td>
+		                </tr>
+		            </tbody>
+		        </table>
+		        <button data-bind="click:function(){cargar()}">Recargar</button>
+		        <table>
+		            <tr>
+		                <td>
+		                </td>
+		                <td>
+		                    <button data-bind="click:function(){mover_arriba()}">arriba</button>
+		                </td>
+		                <td>
+		                </td>
+		            </tr>
+		            <tr>
+		                <td>
+		                    <button data-bind="click:function(){mover_izquierda()}">Izquierda</button>
+		                </td>
+		                <td>
+		                </td>
+		                <td>
+		                    <button data-bind="click:function(){mover_derecha()}">derecha</button>
+		                </td>
+		            </tr>
+		            <tr>
+		                <td>
+		                </td>
+		                <td>
+		                    <button data-bind="click:function(){mover_abajo()}">abajo</button>
+		                </td>
+		                <td>
+		                </td>
+		            </tr>
+		        </table>
+		    </div>
+		    <div id="tablero">
+	           <div data-bind="template: {name:'cuadro', data:cuadro()}"></div>
+	        </div>
+	        
+        
+
+            <script type="text/html" id="cuadro">
+        
+                <table id="tablarobot">
+                <tbody>
+                {{each(i, linea) c}}
+                    <tr>
+                        {{each(j, columna) linea}}
+                            <td>
+							 <img data-bind="attr:{src:columna}">
+                            </td>
+                        {{/each}}
+                    
+                    </tr>
+                {{/each}}
+                </tbody>
+                </table>
+            </script>
+        <div id="push"></div>
         </div>  
         <div id="footer">
             Tarea de IA</br>
             Integrantes: César Toro - Cristian Arteaga
         </div>
-
-        <script type="text/html" id="cuadro">
-        
-            <table>
-            <tbody>
-            {{each(i, linea) c}}
-                <tr height="50px" valign="center">
-                    {{each(j, columna) linea}}
-                        <td width="50px">
-							<img width="50px" height="50px" data-bind="attr:{src:columna}">
-                        </td>
-                    {{/each}}
-                    
-                </tr>
-            {{/each}}
-            </tbody>
-            </table>
-                
-        </script>
-
         <script type="text/javascript">
             var cuadro = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, objeto2_y, objeto3_x, objeto3_y) {
                 this.c = new Array;
