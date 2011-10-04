@@ -155,7 +155,7 @@
                     <tr>
                         {{each(j, columna) linea}}
                             <td>
-							 <img data-bind="attr:{src:columna}">
+							 <img data-bind="attr:{src:columna}" height="50px" width="50px">
                             </td>
                         {{/each}}
                     
@@ -208,7 +208,7 @@
 
             };
             
-            var cuadro = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, objeto2_y, objeto3_x, objeto3_y,recogido_o1,recogido_o2,recogido_o3, altura, expandido) {
+            var cuadro = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, objeto2_y, objeto3_x, objeto3_y,recogido_o1,recogido_o2,recogido_o3, altura,ruta,operador) {
                 
                 this.robot_x = robot_x;
                 this.robot_y = robot_y;
@@ -222,15 +222,29 @@
                 this.recogido_o2 = recogido_o2;
                 this.recogido_o3 = recogido_o3;
                 this.altura = altura;
-                this.expandido = expandido;
+                this.expandido = false;
+                this.ruta = ruta;
+                this.ruta.push(operador);
             };
             
+            /*
             
+                Opedarores:
+                    - 0  : ningun operador;
+                    - 1  : mover Norte
+                    - 2  : mover Sur
+                    - 3  : mover Este
+                    - 4  : mover Oeste
+                
+                En la ruta se almacenan los operadores que llevan al robot a esa situacion.
+            */
             
             var lecturas = function() {
             
                 this.cuadro_visible = ko.observable();
                 this.cuadro_inicial = ko.observable();
+                this.arbol = ko.observableArray([]);
+                this.ruta_solucion = ko.observableArray([]);
                 this.robot_x = ko.observable(1);
                 this.robot_y = ko.observable(1);
                 this.objeto1_x = ko.observable(3);
@@ -243,36 +257,91 @@
                 this.recogido_o2 = ko.observable(false);
                 this.recogido_o3 = ko.observable(false);
                 this.cuadro_visible(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
-                this.cuadro_inicial(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y(),this.recogido_o1(),this.recogido_o2(),this.recogido_o2(),0,false));
+                this.cuadro_inicial(new cuadro(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y(),this.recogido_o1(),this.recogido_o2(),this.recogido_o2(),0,new Array,0));
                 //alert(ko.toJSON(this.niveles()));
+                this.arbol.push(this.cuadro_inicial());
                 this.cargar = function(){
                     this.recogido_o1(false);
                     this.recogido_o2(false);
                     this.recogido_o3(false);
                     this.cuadro(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
                 };
-                this.mover_derecha = function(){
-                    if(this.robot_y()<4&&this.verificar_orden(this.robot_x(),this.robot_y()+1)){
-                        this.robot_y(this.robot_y()+1);
-						this.mover_objetos_derecha();
-                        this.cuadro_visible(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
-                        this.recoger_objeto();
+                this.mover_este = function(cuadro){
+                    if(cuadro.robot_y<4&&this.verificar_orden(cuadro.robot_x,cuadro.robot_y+1, cuadro)){
+                        var objeto1_y = cuadro.objeto1_y;
+                        var objeto2_y = cuadro.objeto2_y;
+                        var objeto3_y = cuadro.objeto3_y;
+                        var recogido_o1 = cuadro.recogido_o1;
+                        var recogido_o2 = cuadro.recogido_o2;
+                        var recogido_o3 = cuadro.recogido_o3;
+                        
+                        if(cuadro.recogido_o1)
+                            objeto1_y = (cuadro.objeto1_y+1);
+                            
+                        if(cuadro.recogido_o2)
+                            objeto2_y = (cuadro.objeto2_y+1);
+                            
+                        if(cuadro.recogido_o3)
+                            objeto3_y = (cuadro.objeto3_y+1);
+                            
+                        if(!recogido_o1)
+                            if(cuadro.robot_x==cuadro.objeto1_x&&cuadro.robot_y==cuadro.objeto1_y)
+                                recogido_o1 = true;
+                                
+                        if(!recogido_o2)
+                            if(cuadro.robot_x==cuadro.objeto2_x&&cuadro.robot_y==cuadro.objeto2_y)
+                                recogido_o2 = true;
+                                
+                        if(!recogido_o3)
+                            if(cuadro.robot_x==cuadro.objeto3_x&&cuadro.robot_y==cuadro.objeto3_y)
+                                recogido_o3 = true;
+                                
+                        this.arbol.push(new cuadro(cuadro.robot_x,cuadro.robot_y+1,cuadro.objeto1_x,objeto1_y,cuadro.objeto2_x,objeto2_y, cuadro.objeto3_x, objeto3_y,recogido_o1,recogido_o2,recogido_o3,cuadro.altura+1,cuadro.ruta,3));
+                        
                     }
                     else
-                        alert("no se puede mover a la derecha");
+                        console.log("no se puede mover a la este");
                     
                 };
-                this.mover_izquierda = function(){
-                    if(this.robot_y()>1&&this.verificar_orden(this.robot_x(),this.robot_y()-1)){
-                        this.robot_y(this.robot_y()-1);
-						this.mover_objetos_izquierda();
-                        this.cuadro_visible(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
-                        this.recoger_objeto();
+                this.mover_oeste = function(cuadro){
+                    if(cuadro.robot_y>1&&this.verificar_orden(cuadro.robot_x,cuadro.robot_y-1, cuadro)){
+                        var objeto1_y = cuadro.objeto1_y;
+                        var objeto2_y = cuadro.objeto2_y;
+                        var objeto3_y = cuadro.objeto3_y;
+                        var recogido_o1 = cuadro.recogido_o1;
+                        var recogido_o2 = cuadro.recogido_o2;
+                        var recogido_o3 = cuadro.recogido_o3;
+                        
+                        if(cuadro.recogido_o1)
+                            objeto1_y = (cuadro.objeto1_y-1);
+                            
+                        if(cuadro.recogido_o2)
+                            objeto2_y = (cuadro.objeto2_y-1);
+                            
+                        if(cuadro.recogido_o3)
+                            objeto3_y = (cuadro.objeto3_y-1);
+                            
+                        if(!recogido_o1)
+                            if(cuadro.robot_x==cuadro.objeto1_x&&cuadro.robot_y==cuadro.objeto1_y)
+                                recogido_o1 = true;
+                                
+                        if(!recogido_o2)
+                            if(cuadro.robot_x==cuadro.objeto2_x&&cuadro.robot_y==cuadro.objeto2_y)
+                                recogido_o2 = true;
+                                
+                        if(!recogido_o3)
+                            if(cuadro.robot_x==cuadro.objeto3_x&&cuadro.robot_y==cuadro.objeto3_y)
+                                recogido_o3 = true;
+                                
+                        this.arbol.push(new cuadro(cuadro.robot_x,cuadro.robot_y-1,cuadro.objeto1_x,objeto1_y,cuadro.objeto2_x,objeto2_y, cuadro.objeto3_x, objeto3_y,recogido_o1,recogido_o2,recogido_o3,cuadro.altura+1,cuadro.ruta,4));
+                        
                     }
                     else
-                        alert("no se puede mover a la izquierda");
+                        console.log("no se puede mover a la oeste");
+                    
                 };
-                this.mover_abajo = function(){
+                
+                this.mover_sur = function(){
                     if(this.robot_x()<4&&this.verificar_orden(this.robot_x()+1,this.robot_y())){
                         this.robot_x(this.robot_x()+1);
 						this.mover_objetos_abajo();
@@ -282,7 +351,7 @@
                     else
                         alert("no se puede mover a la abajo");
                 };
-                this.mover_arriba = function(){
+                this.mover_norte = function(){
                     if(this.robot_x()>1&&this.verificar_orden(this.robot_x()-1,this.robot_y())){
                     
                         this.robot_x(this.robot_x()-1);
@@ -319,15 +388,15 @@
 					}
                 };
 				
-				this.verificar_orden = function(robot_x, robot_y){
-					if(robot_x==this.objeto2_x()&&robot_y==this.objeto2_y()&&!this.recogido_o1())
+				this.verificar_orden = function(robot_x, robot_y, cuadro){
+					if(robot_x==cuadro.objeto2_x&&robot_y==cuadro.objeto2_y&&!cuadro.recogido_o1)
 						return false;
-					if(robot_x==this.objeto3_x()&&robot_y==this.objeto3_y()&&!this.recogido_o2())
+					if(robot_x==cuadro.objeto3_x&&robot_y==cuadro.objeto3_y&&!cuadro.recogido_o2)
 						return false;
                     return true;
                 };
 				
-				this.mover_objetos_derecha = function(){
+				this.mover_objetos_este = function(){
 					if(this.recogido_o1())
 						this.objeto1_y(this.objeto1_y()+1);
 					if(this.recogido_o2())
