@@ -121,17 +121,19 @@
 	        <div id="log" class="grid_3">
 	           <!-- <textarea rows="28" cols="35" disabled="disabled" data-bind="text:solucion_visible"></textarea> -->
                 <span>Costo solución :   </span> <span data-bind="text:cuadro_solucion().g"></span>
-                <table id="logtabla">
-                    <thead>
-                        <tr>
-	                        <th>Número Operación</th>
-	                        <th>Cod operación</th>
-	                        <th width=50%>Desc Operación</th>
-                        </tr>
-                    </thead>
-                    <tbody data-bind="template: {name:'solucion', foreach:solucion_operadores}">
-                    </tbody>
-                </table>
+                <div id="fondo">
+	                <table id="logtabla">
+	                    <thead>
+	                        <tr>
+		                        <th width=15%>N°</th>
+		                        <th>Cod operación</th>
+		                        <th width=50%>Desc Operación</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody data-bind="template: {name:'solucion', foreach:solucion_operadores}">
+	                    </tbody>
+	                </table>
+                </div>
 	        </div>
             </div>
             
@@ -146,7 +148,6 @@
             </script>
 
             <script type="text/html" id="cuadro">
-        
                 <table id="tablarobot" align="center">
                 <tbody>
                 {{each(i, linea) c}}
