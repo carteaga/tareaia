@@ -120,17 +120,16 @@
 	        </div>
 	        <div id="log" class="grid_3">
 	           <!-- <textarea rows="28" cols="35" disabled="disabled" data-bind="text:solucion_visible"></textarea> -->
-                <span>Costo solución :   </span> <span data-bind="text:cuadro_solucion().g"></span>
+                <strong><span>Costo solución :   </span> <span data-bind="text:cuadro_solucion().g"></span></strong>
                 <div id="fondo">
-	                <table id="logtabla">
+	                <table id="logtabla" width=100%>
 	                    <thead>
 	                        <tr>
-		                        <th width=15%>N°</th>
-		                        <th>Cod operación</th>
-		                        <th width=50%>Desc Operación</th>
+		                        <th width=25%>N°</th>
+		                        <th>Desc Operación</th>
 	                        </tr>
 	                    </thead>
-	                    <tbody data-bind="template: {name:'solucion', foreach:solucion_operadores}">
+	                    <tbody data-bind="template: {name:'solucion', data:solucion_operadores}">
 	                    </tbody>
 	                </table>
                 </div>
@@ -138,12 +137,12 @@
             </div>
             
             <script type="text/html" id="solucion">
-        
-                <tr>
-                    <td><span data-bind="text:numero_operacion"></td>
-                    <td><span data-bind="text:id_operador"></span></td>
-                    <td><span data-bind="text:desc_operador"></span></td>
-                </tr>
+                {{each(i,linea) $data}}
+                    <tr>
+                        <td><span data-bind="text:(i+1)"></td>
+                        <td><span data-bind="text:desc_operador"></span></td>
+                    </tr>
+                {{/each}}
                            
             </script>
 

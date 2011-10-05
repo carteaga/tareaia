@@ -168,7 +168,7 @@ var lecturas = function() {
         if(this.cuadro_visible().recogido_o3())
             this.cuadro_visible().objeto3_x(this.cuadro_visible().objeto3_x()-1);
         
-        this.recoger_objeto_visible(this.cuadro_visible());
+        this.recoger_objeto_visible(this.cuadro_visible(),i);
         this.cuadro_visible.valueHasMutated();
     };
     this.mover_sur_visible = function(i){
@@ -183,7 +183,7 @@ var lecturas = function() {
         if(this.cuadro_visible().recogido_o3())
             this.cuadro_visible().objeto3_x(this.cuadro_visible().objeto3_x()+1);
         
-        this.recoger_objeto_visible(this.cuadro_visible());
+        this.recoger_objeto_visible(this.cuadro_visible(),i);
         this.cuadro_visible.valueHasMutated();
     };
     this.mover_este_visible = function(i){
@@ -198,7 +198,7 @@ var lecturas = function() {
         if(this.cuadro_visible().recogido_o3())
             this.cuadro_visible().objeto3_y(this.cuadro_visible().objeto3_y()+1);
         
-        this.recoger_objeto_visible(this.cuadro_visible());
+        this.recoger_objeto_visible(this.cuadro_visible(),i);
         this.cuadro_visible.valueHasMutated();
     };
     this.mover_oeste_visible = function(i){
@@ -213,7 +213,7 @@ var lecturas = function() {
         if(this.cuadro_visible().recogido_o3())
             this.cuadro_visible().objeto3_y(this.cuadro_visible().objeto3_y()-1);
         
-        this.recoger_objeto_visible(this.cuadro_visible());
+        this.recoger_objeto_visible(this.cuadro_visible(),i);
         this.cuadro_visible.valueHasMutated();
     };
     this.mostrar_solucion = function(){
@@ -235,18 +235,27 @@ var lecturas = function() {
         //alert(ko.toJSON(this.cuadro_visible()));
     };
     
-    this.recoger_objeto_visible = function(cuadro){
+    this.recoger_objeto_visible = function(cuadro,i){
         if(!cuadro.recogido_o1())
             if(cuadro.robot_x()==cuadro.objeto1_x()&&cuadro.robot_y()==cuadro.objeto1_y())
+            {
                 cuadro.recogido_o1(true);
+                this.solucion_operadores.push({desc_operador:"Recoger Objeto 1",id_operador:5,numero_operacion:i});
+            }
                 
         if(!cuadro.recogido_o2())
             if(cuadro.robot_x()==cuadro.objeto2_x()&&cuadro.robot_y()==cuadro.objeto2_y())
+            {
                 cuadro.recogido_o2(true);
+                this.solucion_operadores.push({desc_operador:"Recoger Objeto 2",id_operador:5,numero_operacion:i});
+            }
                 
         if(!cuadro.recogido_o3())
             if(cuadro.robot_x()==cuadro.objeto3_x()&&cuadro.robot_y()==cuadro.objeto3_y())
+            {
                 cuadro.recogido_o3(true);
+                this.solucion_operadores.push({desc_operador:"Recoger Objeto 3",id_operador:5,numero_operacion:i});
+            }
     };
     
     this.meta = function(){
