@@ -40,16 +40,47 @@ table#metodo{
 }
 
 table#logtabla{
-    background: white;
     border-collapse:collapse;
     -webkit-border-radius: 12px;
     -moz-border-radius: 12px;
     border-radius: 12px;
 }
 
-#logtabla td{
-    background: white;
+#logtabla thead{
+    background: red;
 }
+
+#logtabla th{
+    padding: 10px;
+}
+
+#logtabla tr{
+    padding: 10px;
+}
+
+#logtabla td{
+   padding: 10px;
+}
+
+
+#logtabla tr:last-child th:first-child {
+-moz-border-radius-topleft:10px;
+-webkit-border-top-left-radius:10px;
+border-top-left-radius:10px}
+
+#logtabla tr:last-child th:last-child {
+-moz-border-radius-topright:10px;
+-webkit-border-top-right-radius:10px;
+border-top-right-radius:10px}
+
+#fondo{
+	background: white;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    min-height: 446px;
+}
+
 
 table#tablarobot{
 	border: 10px solid;
