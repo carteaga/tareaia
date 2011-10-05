@@ -11,7 +11,7 @@ var cuadro_visual = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, 
     this.recogido_o2 = ko.observable(recogido_o2);
     this.recogido_o3 = ko.observable(recogido_o3);
     this.c = ko.dependentObservable(function(){
-        console.log("dependentObservable");
+        
         var c = new Array;
         var recogido = 0;
         for(i=1; i<=4; i++){
@@ -90,9 +90,8 @@ var cuadro_nodo = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, ob
 */
 
 var lecturas = function() {
-    this.metodos = ko.observableArray([{metodo:"A* h1",opcion:1},{metodo:"A* h2",opcion:1},{metodo:"IDA*",opcion:1}]);
     this.solucion_operadores = ko.observableArray([]);
-    this.metodoSeleccionado = ko.observable();
+    this.metodoSeleccionado = ko.observable(1);
     this.cuadro_visible = ko.observable();
     this.cuadro_inicial = ko.observable();
     this.cuadro_solucion = ko.observable({g:0});
@@ -360,8 +359,7 @@ var lecturas = function() {
             this.arbol.push(nuevo_cuadro);
             
         }
-        else
-            console.log("no se puede mover a la este");
+        
         
     };
     this.mover_oeste = function(cuadro){
@@ -386,8 +384,7 @@ var lecturas = function() {
             this.arbol.push(nuevo_cuadro);
             
         }
-        else
-            console.log("no se puede mover a la oeste");
+        
         
     };
     
@@ -412,8 +409,7 @@ var lecturas = function() {
             this.arbol.push(nuevo_cuadro);
             
         }
-        else
-            console.log("no se puede mover a la sur");
+        
         
     };
     
@@ -440,8 +436,7 @@ var lecturas = function() {
             this.arbol.push(nuevo_cuadro);
             
         }
-        else
-            console.log("no se puede mover a la norte");
+        
         
     };
     
