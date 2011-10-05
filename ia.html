@@ -91,8 +91,27 @@
 	        </div>
 	        <div id="log" class="grid_3">
 	           <textarea rows="28" cols="35" disabled="disabled" data-bind="text:solucion_visible"></textarea>
+               <table>
+               <thead>
+                <th>Número Operación</th>
+                <th>Cod operación</th>
+                <th>Desc Operación</th>
+               </thead>
+               <tbody data-bind="template: {name:'solucion', foreach:solucion_operadores}">
+               </tbody>
+               <table>
 	        </div>
             </div>
+            
+            <script type="text/html" id="solucion">
+        
+                <tr>
+                    <td><span data-bind="text:numero_operacion"></td>
+                    <td></span> <span data-bind="text:id_operador"></span></td>
+                    <td><span data-bind="text:desc_operador"></span></td>
+                </tr>
+                           
+            </script>
 
             <script type="text/html" id="cuadro">
         
@@ -291,7 +310,7 @@
                     for(var i=0;i<largo;i++){
                         //alert(ko.toJSON(this.cuadro_visible()));
                         if(this.ruta_solucion()[i]==1){
-                            this.solucion_operadores.push({i:"Mover al Norte"});
+                            this.solucion_operadores.push({desc_operador:"Mover al Norte",id_operador:1,numero_operacion:i});
                             //mover a al norte
                             this.cuadro_visible().robot_x(this.cuadro_visible().robot_x()-1);
                             
@@ -306,6 +325,7 @@
                         }
                         if(this.ruta_solucion()[i]==2){
                             //mover a al Sur
+                            this.solucion_operadores.push({desc_operador:"Mover al Sur",id_operador:2,numero_operacion:i});
                             this.cuadro_visible().robot_x(this.cuadro_visible().robot_x()+1);
                             
                             if(this.cuadro_visible().recogido_o1())
@@ -319,6 +339,7 @@
                         }
                         if(this.ruta_solucion()[i]==3){
                             //mover a al Este
+                            this.solucion_operadores.push({desc_operador:"Mover al Este",id_operador:3,numero_operacion:i});
                             this.cuadro_visible().robot_y(this.cuadro_visible().robot_y()+1);
                             
                             if(this.cuadro_visible().recogido_o1())
@@ -332,6 +353,7 @@
                         }
                         if(this.ruta_solucion()[i]==4){
                             //mover a al Oeste
+                            this.solucion_operadores.push({desc_operador:"Mover al Oeste",id_operador:4,numero_operacion:i});
                             this.cuadro_visible().robot_y(this.cuadro_visible().robot_y()-1);
                             
                             if(this.cuadro_visible().recogido_o1())
