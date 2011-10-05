@@ -39,6 +39,18 @@ table#metodo{
 #metodo tr{
 }
 
+table#logtabla{
+    background: white;
+    border-collapse:collapse;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+}
+
+#logtabla td{
+    background: white;
+}
+
 table#tablarobot{
 	border: 10px solid;
 	width:  400px;
