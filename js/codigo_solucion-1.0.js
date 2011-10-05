@@ -119,6 +119,7 @@ var lecturas = function() {
         this.arbol.push(this.cuadro_inicial());
         this.ruta_solucion.removeAll();
         this.solucion_operadores.removeAll();
+        this.cuadro_solucion({g:0});
         this.recogido_o1(false);
         this.recogido_o2(false);
         this.recogido_o3(false);
