@@ -22,9 +22,11 @@
             <div id="dashboard" class="grid_3">
 		        <table >
                     <thead>
-                        <th></th>
-                        <th>Fila</th>
-                        <th>Columna</th>
+                        <tr>
+	                        <th></th>
+	                        <th>Fila</th>
+	                        <th>Columna</th>
+                        </tr>
                     </thead>
 		            <tbody>
 		                <tr>
@@ -100,13 +102,15 @@
                 <span>Costo solución :   </span> <span data-bind="text:cuadro_solucion().g"></span>
                 <table>
                     <thead>
-                        <th>Número Operación</th>
-                        <th>Cod operación</th>
-                        <th>Desc Operación</th>
+                        <tr>
+	                        <th>Número Operación</th>
+	                        <th>Cod operación</th>
+	                        <th>Desc Operación</th>
+                        </tr>
                     </thead>
                     <tbody data-bind="template: {name:'solucion', foreach:solucion_operadores}">
                     </tbody>
-                <table>
+                </table>
 	        </div>
             </div>
             
@@ -140,19 +144,13 @@
         <div class="push"></div>
         </div>  
         <div class="footer">
-            Tarea de IA</br>
+            Tarea de IA<br/>
             Integrantes: César Toro - Cristian Arteaga
         </div>
         
         <script type="text/javascript">
-        
-            
-            
-             
             var lectViewModel = new lecturas();
             ko.applyBindings(lectViewModel);
-            
-
         </script>
 
     </body>
