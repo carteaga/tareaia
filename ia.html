@@ -251,6 +251,7 @@
                 this.metodoSeleccionado = ko.observable();
                 this.cuadro_visible = ko.observable();
                 this.cuadro_inicial = ko.observable();
+                this.cuadro_solucion = ko.observable();
                 this.arbol = ko.observableArray([]);
                 this.ruta_solucion = ko.observableArray([]);
                 this.robot_x = ko.observable(1);
@@ -289,7 +290,7 @@
                 this.solucion = function(){
                     this.cargar();
                     var largo = this.arbol().length;
-                    while(!this.terminado()){
+                    while(!this.meta()){
                         //alert(ko.toJSON(this.arbol()));
                         menor = this.menor_costo();
                         if(!this.arbol()[menor].expandido){
@@ -310,7 +311,7 @@
                     alert(ko.toJSON(this.ruta_solucion()));
                     this.mostrar_solucion();
                 };
-                this.mover_norte_visible = function(){
+                this.mover_norte_visible = function(i){
                     //mover a al norte
                     this.solucion_operadores.push({desc_operador:"Mover al Norte",id_operador:1,numero_operacion:i});
                     
@@ -326,7 +327,7 @@
                     this.recoger_objeto_visible(this.cuadro_visible());
                     this.cuadro_visible.valueHasMutated();
                 };
-                this.mover_sur_visible = function(){
+                this.mover_sur_visible = function(i){
                     //mover a al Sur
                     this.solucion_operadores.push({desc_operador:"Mover al Sur",id_operador:2,numero_operacion:i});
                     this.cuadro_visible().robot_x(this.cuadro_visible().robot_x()+1);
@@ -341,7 +342,7 @@
                     this.recoger_objeto_visible(this.cuadro_visible());
                     this.cuadro_visible.valueHasMutated();
                 };
-                this.mover_este_visible = function(){
+                this.mover_este_visible = function(i){
                     //mover a al Este
                     this.solucion_operadores.push({desc_operador:"Mover al Este",id_operador:3,numero_operacion:i});
                     this.cuadro_visible().robot_y(this.cuadro_visible().robot_y()+1);
@@ -356,7 +357,7 @@
                     this.recoger_objeto_visible(this.cuadro_visible());
                     this.cuadro_visible.valueHasMutated();
                 };
-                this.mover_oeste_visible = function(){
+                this.mover_oeste_visible = function(i){
                     //mover a al Oeste
                     this.solucion_operadores.push({desc_operador:"Mover al Oeste",id_operador:4,numero_operacion:i});
                     this.cuadro_visible().robot_y(this.cuadro_visible().robot_y()-1);
@@ -375,16 +376,16 @@
                     var largo = this.ruta_solucion().length;
                     for(var i=0;i<largo;i++){
                         if(this.ruta_solucion()[i]==1){
-                            setTimeout("lectViewModel.mover_norte_visible()",i*1000);
+                            setTimeout("lectViewModel.mover_norte_visible("+i+")",i*1000);
                         }
                         if(this.ruta_solucion()[i]==2){
-                            setTimeout("lectViewModel.mover_sur_visible()",i*1000);
+                            setTimeout("lectViewModel.mover_sur_visible("+i+")",i*1000);
                         }
                         if(this.ruta_solucion()[i]==3){
-                            setTimeout("lectViewModel.mover_este_visible()",i*1000);
+                            setTimeout("lectViewModel.mover_este_visible("+i+")",i*1000);
                         }
                         if(this.ruta_solucion()[i]==4){
-                            setTimeout("lectViewModel.mover_oeste_visible()",i*1000);
+                            setTimeout("lectViewModel.mover_oeste_visible("+i+")",i*1000);
                         }
                     };
                     //alert(ko.toJSON(this.cuadro_visible()));
@@ -404,11 +405,12 @@
                             cuadro.recogido_o3(true);
                 };
                 
-                this.terminado = function(){
+                this.meta = function(){
                     var largo = this.arbol().length;
                     for(i=0;i<largo;i++){
                         if(this.arbol()[i].recogido_o1&&this.arbol()[i].recogido_o2&&this.arbol()[i].recogido_o3){
                             this.ruta_solucion(this.arbol()[i].ruta);
+                            this.cuadro_solucion(this.arbol()[i]);
                             return true;
                         }
                     }
