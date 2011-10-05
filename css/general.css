@@ -28,12 +28,21 @@ body{
     margin-bottom: 1.5%;
 }
 
+table#metodo{
+    margin-top: 10px;
+}
+
+#metodo td{
+}
+
+#metodo tr{
+}
+
 table#tablarobot{
-	border: 1px solid;
+	border: 10px solid;
 	width:  400px;
 	height: 400px;
-	
-	
+	background: url('../imagenes/piso.jpg');
 	/*border radius */
 	-webkit-border-radius: 12px;
     -moz-border-radius: 12px;
@@ -48,8 +57,9 @@ table#tablarobot{
 #tablarobot td{
 	width: 50px;
 	height: 50px;
-	border: 1px dashed;
+	border: 1px solid white;
 	vertical-align: middle;
+	
 }
 
 #img{
@@ -61,7 +71,7 @@ table#tablarobot{
     width: 50px;
     height: 50px;
     border: 1px dashed;
-    
+   
 }
 
 #tablero{
@@ -77,9 +87,13 @@ table#tablarobot{
 }
 
 #dashboard{
-
+    
 }
 
+#formrobot tr{
+	height: 40px;
+	
+}
 
 /* dasboard form */
 
@@ -162,10 +176,17 @@ border: rgba(0, 0, 0, .2) 1px solid;
 }
 
 /* personalización */
-.button.pequeno span {
+.button.grande span {
    font-size:23px;
 }
 
+.button.pequeno span{
+	font-size: 15px;
+}
+
+.button.azul{
+	background-color: blue;
+}
 .button.rojo {
    background-color: #e62727;
 }
