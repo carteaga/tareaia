@@ -18,25 +18,25 @@ var cuadro_visual = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, 
             c[i-1] = new Array;
             
             for(j=1; j<=4; j++){
-                c[i-1][j-1] = "./imagenes/vacio.jpg";
+                c[i-1][j-1] = "./imagenes/vacio.png";
                 
                 if(this.objeto1_x() == i && this.objeto1_y() == j){
-                    c[i-1][j-1] = "./imagenes/objeto1.jpg";
+                    c[i-1][j-1] = "./imagenes/objeto1.png";
                     if(this.recogido_o1())
                         recogido++;
                 }
                 if(this.objeto2_x() == i && this.objeto2_y() == j){
-                    c[i-1][j-1] = "./imagenes/objeto2.jpg";
+                    c[i-1][j-1] = "./imagenes/objeto2.png";
                     if(this.recogido_o2())
                         recogido++;
                 }
                 if(this.objeto3_x() == i && this.objeto3_y() == j){
-                    c[i-1][j-1] = "./imagenes/objeto3.jpg";
+                    c[i-1][j-1] = "./imagenes/objeto3.png";
                     if(this.recogido_o3())
                         recogido++;
                 }
                 if(this.robot_x() == i && this.robot_y() == j){
-                    c[i-1][j-1] = "./imagenes/robot-vacio.jpg";
+                    c[i-1][j-1] = "./imagenes/robot-vacio.png";
                     if(recogido==1)
                         c[i-1][j-1] = "./imagenes/robot-1o.jpg";
                     if(recogido==2)
