@@ -90,7 +90,7 @@
 	           <center><a class="button pequeno rojo" href="#"><span data-bind="click:function(){solucion()}">START !</span></a></center>
 	        </div>
 	        <div id="log" class="grid_3">
-	           <textarea rows="28" cols="35"></textarea>
+	           <textarea rows="28" cols="35" disabled="disabled" data-bind="text:solucion_visible"></textarea>
 	        </div>
             </div>
 
@@ -206,6 +206,7 @@
                 this.ruta = mapeo;
                 this.ruta.push(operador);
                 this.costo = 0;
+                this.g = 0;
             };
             
             /*
@@ -222,6 +223,7 @@
             
             var lecturas = function() {
                 this.metodos = ko.observableArray([{metodo:"A* h1",opcion:1},{metodo:"A* h2",opcion:1},{metodo:"IDA*",opcion:1}]);
+                this.solucion_operadores = ko.observableArray([]);
                 this.metodoSeleccionado = ko.observable();
                 this.cuadro_visible = ko.observable();
                 this.cuadro_inicial = ko.observable();
@@ -251,13 +253,19 @@
                     this.recogido_o2(false);
                     this.recogido_o3(false);
                     this.cuadro_visible(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
-                    alert(ko.toJSON(this));
+                    this.recoger_objeto_visible(this.cuadro_visible());
+                    //alert(ko.toJSON(this));
                 };
+                
+                this.solucion_visible = ko.dependentObservable(function(){
+                    return (ko.toJSON(this.solucion_operadores()));
+                },this);
                 
                 this.solucion = function(){
                     this.cargar();
                     var largo = this.arbol().length;
                     while(!this.terminado()){
+                        //alert(ko.toJSON(this.arbol()));
                         menor = this.menor_costo();
                         if(!this.arbol()[menor].expandido){
                             this.mover_norte(this.arbol()[menor]);
@@ -283,6 +291,7 @@
                     for(var i=0;i<largo;i++){
                         //alert(ko.toJSON(this.cuadro_visible()));
                         if(this.ruta_solucion()[i]==1){
+                            this.solucion_operadores.push({i:"Mover al Norte"});
                             //mover a al norte
                             this.cuadro_visible().robot_x(this.cuadro_visible().robot_x()-1);
                             
@@ -380,6 +389,11 @@
                     return menor;
                 };
                 
+                this.g = function(cuadro){
+                    //este es el costo de aplicar cualquier operador (1)
+                    return cuadro.g+1;
+                };
+                
                 this.costo_ruta = function(cuadro){
                     if(this.metodoSeleccionado()==1)
                         return this.costo_ruta_1(cuadro);
@@ -390,11 +404,32 @@
                 };
                 
                 this.costo_ruta_1 = function(cuadro){
-                    return cuadro.costo + 1;
+                    //A* con heuristica 1
+                    var heuristica = 0;
+                    if(!cuadro.recogido_o1){
+                        heuristica += Math.abs(cuadro.robot_x-cuadro.objeto1_x);
+                        heuristica += Math.abs(cuadro.robot_y-cuadro.objeto1_y);
+                    }
+                    if(!cuadro.recogido_o2){
+                        heuristica += Math.abs(cuadro.robot_x-cuadro.objeto2_x);
+                        heuristica += Math.abs(cuadro.robot_y-cuadro.objeto2_y);
+                    }
+                    if(!cuadro.recogido_o3){
+                        heuristica += Math.abs(cuadro.robot_x-cuadro.objeto3_x);
+                        heuristica += Math.abs(cuadro.robot_y-cuadro.objeto3_y);
+                    }
+                    return cuadro.g + heuristica;
                 };
                 this.costo_ruta_2 = function(cuadro){
-                    
-                    return cuadro.costo + 2;
+                    //A* con heuristica 2
+                    var heuristica = 0;
+                    heuristica += Math.abs(cuadro.robot_x-cuadro.objeto1_x);
+                    heuristica += Math.abs(cuadro.robot_y-cuadro.objeto1_y);
+                    heuristica += Math.abs(cuadro.objeto1_x-cuadro.objeto2_x);
+                    heuristica += Math.abs(cuadro.objeto1_y-cuadro.objeto2_y);
+                    heuristica += Math.abs(cuadro.objeto2_x-cuadro.objeto3_x);
+                    heuristica += Math.abs(cuadro.objeto2_y-cuadro.objeto3_y);
+                    return cuadro.g + heuristica;
                 };
                 this.costo_ruta_3 = function(cuadro){
                     return cuadro.costo + 3;
@@ -432,8 +467,9 @@
                             
                                                 
                         nuevo_cuadro = new cuadro_nodo(cuadro.robot_x,cuadro.robot_y+1,cuadro.objeto1_x,objeto1_y,cuadro.objeto2_x,objeto2_y, cuadro.objeto3_x, objeto3_y,cuadro.altura+1,cuadro.ruta,3);
-                        nuevo_cuadro.costo = this.costo_ruta(nuevo_cuadro);
                         this.recoger_objeto(nuevo_cuadro);
+                        nuevo_cuadro.g = this.g(cuadro);
+                        nuevo_cuadro.costo = this.costo_ruta(nuevo_cuadro);
                         this.arbol.push(nuevo_cuadro);
                         
                     }
@@ -457,8 +493,9 @@
                             objeto3_y = parseInt(cuadro.objeto3_y)-1;
                                 
                         nuevo_cuadro = new cuadro_nodo(cuadro.robot_x,cuadro.robot_y-1,cuadro.objeto1_x,objeto1_y,cuadro.objeto2_x,objeto2_y, cuadro.objeto3_x, objeto3_y,cuadro.altura+1,cuadro.ruta,4);
-                        nuevo_cuadro.costo = this.costo_ruta(nuevo_cuadro);
                         this.recoger_objeto(nuevo_cuadro);
+                        nuevo_cuadro.g = this.g(cuadro);
+                        nuevo_cuadro.costo = this.costo_ruta(nuevo_cuadro);
                         this.arbol.push(nuevo_cuadro);
                         
                     }
@@ -482,8 +519,9 @@
                             objeto3_x = parseInt(cuadro.objeto3_x)+1;
                             
                         nuevo_cuadro = new cuadro_nodo(cuadro.robot_x+1,cuadro.robot_y,objeto1_x,cuadro.objeto1_y,objeto2_x,cuadro.objeto2_y, objeto3_x, cuadro.objeto3_y,cuadro.altura+1,cuadro.ruta,2);
-                        nuevo_cuadro.costo = this.costo_ruta(nuevo_cuadro);
                         this.recoger_objeto(nuevo_cuadro);
+                        nuevo_cuadro.g = this.g(cuadro);
+                        nuevo_cuadro.costo = this.costo_ruta(nuevo_cuadro);
                         this.arbol.push(nuevo_cuadro);
                         
                     }
@@ -510,6 +548,7 @@
                         
                         nuevo_cuadro = new cuadro_nodo(cuadro.robot_x-1,cuadro.robot_y,objeto1_x,cuadro.objeto1_y,objeto2_x,cuadro.objeto2_y, objeto3_x, cuadro.objeto3_y,cuadro.altura+1,cuadro.ruta,1);
                         this.recoger_objeto(nuevo_cuadro);
+                        nuevo_cuadro.g = this.g(cuadro);
                         nuevo_cuadro.costo = this.costo_ruta(nuevo_cuadro);
                         this.arbol.push(nuevo_cuadro);
                         
