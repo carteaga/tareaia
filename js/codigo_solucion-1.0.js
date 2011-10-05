@@ -38,11 +38,11 @@ var cuadro_visual = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, 
                 if(this.robot_x() == i && this.robot_y() == j){
                     c[i-1][j-1] = "./imagenes/robot-vacio.png";
                     if(recogido==1)
-                        c[i-1][j-1] = "./imagenes/robot-1o.jpg";
+                        c[i-1][j-1] = "./imagenes/robot-o1.png";
                     if(recogido==2)
-                        c[i-1][j-1] = "./imagenes/robot-2o.jpg";
+                        c[i-1][j-1] = "./imagenes/robot-o2.png";
                     if(recogido==3)
-                        c[i-1][j-1] = "./imagenes/robot-3o.jpg";
+                        c[i-1][j-1] = "./imagenes/robot-o3.png";
                         //this.c[i-1][j-1] = "R"+recogido;
                 }
             }
