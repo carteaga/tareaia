@@ -20,7 +20,7 @@
             </div>
             <div class="container_12">
             <div id="dashboard" class="grid_3">
-		        <table >
+		        <table id="formrobot">
                     <thead>
                         <tr>
 	                        <th></th>
@@ -41,8 +41,7 @@
 		                    </td>
 
 		                </tr>
-		                <tr>
-		                </tr>
+
 		                <tr>
 		                    <td>
 		                        <span class="spantext">Objeto 1 : </span>
@@ -54,7 +53,7 @@
 		                    <td>
 		                      <input type="text" class="inputform" data-bind="value:objeto1_y"/>
 		                    </td>
-		                    <td><span data-bind=' visible: cuadro_visible().recogido_o1'>[IMG]</span></td>
+		                    <td><span data-bind=' visible: cuadro_visible().recogido_o1'><img height="30px" src="./imagenes/tick.png"></img></span></td>
 		                </tr>
 		                
 		                <tr>
@@ -67,7 +66,7 @@
 		                    <td>
                                 <input type="text" class="inputform" data-bind="value:objeto2_y"/>
                             </td>
-                            <td><span data-bind=' visible: cuadro_visible().recogido_o2'>[IMG]</span></td>
+                            <td><span data-bind=' visible: cuadro_visible().recogido_o2'><img height="30px"  src="./imagenes/tick.png"></img></span></td>
 		                </tr>
 		                
 		                <tr>
@@ -82,20 +81,45 @@
                             <td>
                                 <input type="text" class="inputform" data-bind="value:objeto3_y"/>
                             </td>
-                            <td><span data-bind=' visible: cuadro_visible().recogido_o3'>[IMG]</span></td>
+                            <td><span data-bind=' visible: cuadro_visible().recogido_o3'><img height="30px" src="./imagenes/tick.png"></img></span></td>
 		                </tr>
 		            </tbody>
 		        </table>
-
-                <select data-bind='options: metodos, optionsValue:"opcion", optionsText:"metodo", value: metodoSeleccionado'></select>
-
-		        <button data-bind="click:function(){cargar()}">Recargar</button>
+                
+                <table id="metodo">
+                    <caption>Metodo</caption>
+                    <tbody>
+                        <tr>
+                          <td>
+                          A* h1
+                          </td>
+                          <td><input data-bind="checked: metodoSeleccionado" name="opcion" type="radio" value=1 /></td>
+                        </tr>
+                        
+                        <tr>
+                          <td>
+                          A* h2
+                          </td>
+                          <td><input data-bind="checked: metodoSeleccionado" name="opcion" type="radio" value=2 /></td>
+                        </tr>
+                        
+                        <tr>
+                          <td>
+                          IDA* h1
+                          </td>
+                          <td><input data-bind="checked: metodoSeleccionado" name="opcion" type="radio" value=3 /></td>
+                        </tr>
+                    </tbody>
+                </table>
+               
+               <center><a class="button pequeno azul" href="#"><span data-bind="click:function(){cargar()}">Recargar</span></a></center>
+		        
 
 		    </div>
 		    <div class="grid_6">
 	           <div data-bind="template: {name:'cuadro', data:cuadro_visible()}" id="tablero"></div>
 	           <br/>
-	           <center><a class="button pequeno rojo" href="#"><span data-bind="click:function(){solucion()}">START !</span></a></center>
+	           <center><a class="button grande rojo" href="#"><span data-bind="click:function(){solucion()}">START !</span></a></center>
 	        </div>
 	        <div id="log" class="grid_3">
 	           <!-- <textarea rows="28" cols="35" disabled="disabled" data-bind="text:solucion_visible"></textarea> -->
