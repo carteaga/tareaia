@@ -242,6 +242,9 @@ border: rgba(0, 0, 0, .2) 1px solid;
    background-color: #e62727;
 }
 
+.button.plomo{
+	background-color: #A4A4A4;
+}
 A{
    color: #0000cc;
    text-decoration: none;
