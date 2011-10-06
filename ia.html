@@ -34,10 +34,10 @@
 		                        <span class="spantext">Robot : </span>
 		                    </td>
 		                    <td>
-		                      <input type="text" class="inputform" data-bind="value:robot_x"/>
+		                      <input type="text" class="inputform" data-bind="value:robot_x,enable:permiso()"/>
 		                    </td>
 		                    <td>
-		                      <input type="text" class="inputform" data-bind="value:robot_y"/>
+		                      <input type="text" class="inputform" data-bind="value:robot_y,enable:permiso()"/>
 		                    </td>
 
 		                </tr>
@@ -47,11 +47,11 @@
 		                        <span class="spantext">Objeto 1 : </span>
 		                    </td>
 		                    <td>
-		                        <input type="text" class="inputform" data-bind="value:objeto1_x"/>
+		                        <input type="text" class="inputform" data-bind="value:objeto1_x,enable:permiso()"/>
 		                    </td>
 		                      
 		                    <td>
-		                      <input type="text" class="inputform" data-bind="value:objeto1_y"/>
+		                      <input type="text" class="inputform" data-bind="value:objeto1_y,enable:permiso()"/>
 		                    </td>
 		                    <td><span data-bind=' visible: cuadro_visible().recogido_o1'><img height="30px" src="./imagenes/tick.png"></img></span></td>
 		                </tr>
@@ -61,10 +61,10 @@
 		                        <span class="spantext">Objeto 2 : </span>
 		                    </td>
 		                    <td>
-		                        <input type="text" class="inputform" data-bind="value:objeto2_x"/>
+		                        <input type="text" class="inputform" data-bind="value:objeto2_x,enable:permiso()"/>
 		                    </td>
 		                    <td>
-                                <input type="text" class="inputform" data-bind="value:objeto2_y"/>
+                                <input type="text" class="inputform" data-bind="value:objeto2_y,enable:permiso()"/>
                             </td>
                             <td><span data-bind=' visible: cuadro_visible().recogido_o2'><img height="30px"  src="./imagenes/tick.png"></img></span></td>
 		                </tr>
@@ -76,10 +76,10 @@
 		                    
 
 		                    <td>
-                              <input type="text" class="inputform" data-bind="value:objeto3_x"/>
+                              <input type="text" class="inputform" data-bind="value:objeto3_x,enable:permiso()"/>
                             </td>    
                             <td>
-                                <input type="text" class="inputform" data-bind="value:objeto3_y"/>
+                                <input type="text" class="inputform" data-bind="value:objeto3_y,enable:permiso()"/>
                             </td>
                             <td><span data-bind=' visible: cuadro_visible().recogido_o3'><img height="30px" src="./imagenes/tick.png"></img></span></td>
 		                </tr>
@@ -94,29 +94,29 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><label><input data-bind="checked: metodoSeleccionado" name="opcion" type="radio" value=1 /> A* h1</label></td>    
+                            <td><label><input data-bind="checked: metodoSeleccionado,enable:permiso()" name="opcion" type="radio" value=1 /> A* h1</label></td>    
                         </tr>
                         
                         <tr>
-                            <td><label><input data-bind="checked: metodoSeleccionado" name="opcion" type="radio" value=2 /> A* h2</label></td>
+                            <td><label><input data-bind="checked: metodoSeleccionado,enable:permiso()" name="opcion" type="radio" value=2 /> A* h2</label></td>
                         </tr>
                         
                         <tr>
-                            <td><label><input data-bind="checked: metodoSeleccionado" name="opcion" type="radio" value=3 /> IDA* h1</label></td>
+                            <td><label><input data-bind="checked: metodoSeleccionado,enable:permiso()" name="opcion" type="radio" value=3 /> IDA* h1</label></td>
                                 
 
                         </tr>
                     </tbody>
                 </table>
                
-               <center><a data-bind="css:{'button pequeno azul':permiso,'button pequeno plomo':!permiso()}" href="#"><span data-bind="click:function(){if(permiso())cargar();}">Recargar</span></a></center>
+               <center><a class="button pequeno azul" data-bind="style:{backgroundColor:permiso()?'blue':'#A4A4A4'}" href="#"><span data-bind="click:function(){if(permiso())cargar();}">Recargar</span></a></center>
 		        
 
 		    </div>
 		    <div class="grid_6">
 	           <div data-bind="template: {name:'cuadro', data:cuadro_visible()}" id="tablero"></div>
 	           <br/>
-	           <center><a data-bind="css:{'button grande rojo':permiso}" href="#"><span data-bind="click:function(){if(permiso())solucion();}">START !</span></a></center>
+	           <center><a class="button grande rojo" data-bind="style:{backgroundColor:permiso()?'red':'#A4A4A4'}" href="#"><span data-bind="click:function(){if(permiso())solucion();}">START !</span></a></center>
 	        </div>
 	        <div id="log" class="grid_3">
 	           <!-- <textarea rows="28" cols="35" disabled="disabled" data-bind="text:solucion_visible"></textarea> -->
