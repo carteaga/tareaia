@@ -90,6 +90,7 @@ var cuadro_nodo = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, ob
 */
 
 var lecturas = function() {
+    this.permiso = ko.observable(true);
     this.solucion_operadores = ko.observableArray([]);
     this.metodoSeleccionado = ko.observable(1);
     this.cuadro_visible = ko.observable();
@@ -113,6 +114,7 @@ var lecturas = function() {
     //alert(ko.toJSON(this.niveles()));
     this.arbol.push(this.cuadro_inicial());
     this.cargar = function(){
+        this.permiso(false);
         this.cuadro_inicial(new cuadro_nodo(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y(),0,new Array,0));
         this.arbol.removeAll();
         this.arbol.push(this.cuadro_inicial());
@@ -125,6 +127,8 @@ var lecturas = function() {
         this.cuadro_visible(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
         this.recoger_objeto_visible(this.cuadro_visible());
         //alert(ko.toJSON(this));
+        
+        this.permiso(true);
     };
     
     this.solucion_visible = ko.dependentObservable(function(){
@@ -133,6 +137,8 @@ var lecturas = function() {
     
     this.solucion = function(){
         this.cargar();
+        
+        this.permiso(false);
         var largo = this.arbol().length;
         while(!this.meta()){
             //alert(ko.toJSON(this.arbol()));
@@ -146,13 +152,15 @@ var lecturas = function() {
             }
             else{
                 alert("No existe una solucion posible");
+                
+                this.permiso(true);
                 break;
                 
             }
             //alert(ko.toJSON(this.arbol()));
         }
         
-        alert(ko.toJSON(this.ruta_solucion()));
+        //alert(ko.toJSON(this.ruta_solucion()));
         this.mostrar_solucion();
     };
     this.mover_norte_visible = function(i){
@@ -232,6 +240,8 @@ var lecturas = function() {
                 setTimeout("lectViewModel.mover_oeste_visible("+i+")",i*1000);
             }
         };
+        
+        setTimeout("lectViewModel.permiso(true);",largo*1000);;
         //alert(ko.toJSON(this.cuadro_visible()));
     };
     

@@ -109,14 +109,14 @@
                     </tbody>
                 </table>
                
-               <center><a class="button pequeno azul" href="#"><span data-bind="click:function(){if( permiso )cargar();}, css: permiso ? 'button pequeno azul':'button pequeno plomo'">Recargar</span></a></center>
+               <center><a data-bind="css:{'button pequeno azul':permiso,'button pequeno plomo':!permiso()}" href="#"><span data-bind="click:function(){if(permiso())cargar();}">Recargar</span></a></center>
 		        
 
 		    </div>
 		    <div class="grid_6">
 	           <div data-bind="template: {name:'cuadro', data:cuadro_visible()}" id="tablero"></div>
 	           <br/>
-	           <center><a class="button grande rojo" href="#"><span data-bind="click:function(){solucion()}">START !</span></a></center>
+	           <center><a data-bind="css:{'button grande rojo':permiso}" href="#"><span data-bind="click:function(){if(permiso())solucion();}">START !</span></a></center>
 	        </div>
 	        <div id="log" class="grid_3">
 	           <!-- <textarea rows="28" cols="35" disabled="disabled" data-bind="text:solucion_visible"></textarea> -->
@@ -168,6 +168,7 @@
             <div class="grid_6">
             Tarea de IA<br/>
             Integrantes: César Toro - Cristian Arteaga
+            <span data-bind="text:permiso()"></span>
             </div>
 
             <div id="compatible" class="grid_3 suffix_3">
