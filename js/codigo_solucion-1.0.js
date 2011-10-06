@@ -14,6 +14,12 @@ var cuadro_visual = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, 
         
         var c = new Array;
         var recogido = 0;
+        if(this.recogido_o1())
+            recogido++;
+        if(this.recogido_o2())
+            recogido++;
+        if(this.recogido_o3())
+            recogido++;
         for(i=1; i<=4; i++){
             c[i-1] = new Array;
             
@@ -22,19 +28,19 @@ var cuadro_visual = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, 
                 
                 if(this.objeto1_x() == i && this.objeto1_y() == j){
                     c[i-1][j-1] = "./imagenes/objeto1.png";
-                    if(this.recogido_o1())
-                        recogido++;
+                    
                 }
+                
                 if(this.objeto2_x() == i && this.objeto2_y() == j){
                     c[i-1][j-1] = "./imagenes/objeto2.png";
-                    if(this.recogido_o2())
-                        recogido++;
+                    
                 }
+                
                 if(this.objeto3_x() == i && this.objeto3_y() == j){
                     c[i-1][j-1] = "./imagenes/objeto3.png";
-                    if(this.recogido_o3())
-                        recogido++;
+                    
                 }
+                
                 if(this.robot_x() == i && this.robot_y() == j){
                     c[i-1][j-1] = "./imagenes/robot-vacio.png";
                     if(recogido==1)
@@ -117,6 +123,7 @@ var lecturas = function() {
         this.permiso(false);
         this.cuadro_inicial(new cuadro_nodo(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y(),0,new Array,0));
         this.arbol.removeAll();
+        this.recoger_objeto(this.cuadro_inicial());
         this.arbol.push(this.cuadro_inicial());
         this.ruta_solucion.removeAll();
         this.solucion_operadores.removeAll();
