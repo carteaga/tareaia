@@ -34,7 +34,7 @@
 		                        <span class="spantext">Robot : </span>
 		                    </td>
 		                    <td>
-		                      <input type="text" class="inputform" data-bind="value:robot_x,enable:permiso()"/>
+		                      <input type="text" class="inputform" data-bind="value:robot_x,enable:permiso(),valueUpdate:'afterkeydown'"/>
 		                    </td>
 		                    <td>
 		                      <input type="text" class="inputform" data-bind="value:robot_y,enable:permiso()"/>
@@ -109,14 +109,14 @@
                     </tbody>
                 </table>
                
-               <center><a class="button pequeno azul" data-bind="style:{backgroundColor:permiso()?'blue':'#A4A4A4'}" href="#"><span data-bind="click:function(){if(permiso())cargar();}">Recargar</span></a></center>
+               <center><a class="button pequeno azul" data-bind="style:{backgroundColor:permiso()?'blue':'#A4A4A4'}" href="#"><span data-bind="click:function(){if(permiso()&&datos_correctos())cargar();}">Recargar</span></a></center>
 		        
 
 		    </div>
 		    <div class="grid_6">
 	           <div data-bind="template: {name:'cuadro', data:cuadro_visible()}" id="tablero"></div>
 	           <br/>
-	           <center><a class="button grande rojo" data-bind="style:{backgroundColor:permiso()?'red':'#A4A4A4'}" href="#"><span data-bind="click:function(){if(permiso())solucion();}">START !</span></a></center>
+	           <center><a class="button grande rojo" data-bind="style:{backgroundColor:permiso()?'red':'#A4A4A4'}" href="#"><span data-bind="click:function(){if(permiso()&&datos_correctos())solucion();}">START !</span></a></center>
 	        </div>
 	        <div id="log" class="grid_3">
 	           <!-- <textarea rows="28" cols="35" disabled="disabled" data-bind="text:solucion_visible"></textarea> -->
@@ -168,7 +168,6 @@
             <div class="grid_6">
             Tarea de IA<br/>
             Integrantes: César Toro - Cristian Arteaga
-            <span data-bind="text:permiso()"></span>
             </div>
 
             <div id="compatible" class="grid_3 suffix_3">

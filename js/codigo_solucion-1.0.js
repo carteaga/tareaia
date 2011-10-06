@@ -131,9 +131,76 @@ var lecturas = function() {
         this.permiso(true);
     };
     
-    this.solucion_visible = ko.dependentObservable(function(){
-        return (ko.toJSON(this.solucion_operadores()));
-    },this);
+    this.datos_correctos = function(){
+        if(this.robot_x()<=0){
+            alert("La fila del robot debe ser mayor a 0");
+            return false;
+        }
+        if(this.robot_y()<=0){
+            this.robot_y(1);
+            alert("La columna del robot debe ser mayor a 0");
+            return false;
+        }
+        if(this.objeto1_x()<=0){
+            alert("La fila del objeto 1 debe ser mayor a 0");
+            return false;
+        }
+        if(this.objeto1_y()<=0){
+            alert("La columna del objeto 1 debe ser mayor a 0");
+            return false;
+        }
+        if(this.objeto2_x()<=0){
+            alert("La fila del objeto 2 debe ser mayor a 0");
+            return false;
+        }
+        if(this.objeto2_y()<=0){
+            alert("La columna del objeto 2 debe ser mayor a 0");
+            return false;
+        }
+        if(this.objeto3_x()<=0){
+            alert("La fila del objeto 3 debe ser mayor a 0");
+            return false;
+        }
+        if(this.objeto3_y()<=0){
+            alert("La columna del objeto 3 debe ser mayor a 0");
+            return false;
+        }
+        
+        
+        if(this.robot_x()>4){
+            alert("La fila del robot debe ser menor o igual a 4");
+            return false;
+        }
+        if(this.robot_y()>4){
+            alert("La columna del robot debe ser menor o igual a 4");
+            return false;
+        }
+        if(this.objeto1_x()>4){
+            alert("La fila del objeto 1 debe ser menor o igual a 4");
+            return false;
+        }
+        if(this.objeto1_y()>4){
+            alert("La columna del objeto 1 debe menor o igual a 4");
+            return false;
+        }
+        if(this.objeto2_x()>4){
+            alert("La fila del objeto 2 debe ser menor o igual a 4");
+            return false;
+        }
+        if(this.objeto2_y()>4){
+            alert("La columna del objeto 2 debe ser menor o igual a 4");
+            return false;
+        }
+        if(this.objeto3_x()>4){
+            alert("La fila del objeto 3 debe ser menor o igual a 4");
+            return false;
+        }
+        if(this.objeto3_y()>4){
+            alert("La columna del objeto 3 debe ser menor o igual a 4");
+            return false;
+        }
+        return true;
+    };
     
     this.solucion = function(){
         this.cargar();
