@@ -109,7 +109,7 @@
                     </tbody>
                 </table>
                
-               <center><a class="button pequeno azul" href="#"><span data-bind="click:function(){cargar()}">Recargar</span></a></center>
+               <center><a class="button pequeno azul" href="#"><span data-bind="click:function(){if( permiso )cargar();}, css: permiso ? 'button pequeno azul':'button pequeno plomo'">Recargar</span></a></center>
 		        
 
 		    </div>
@@ -165,8 +165,16 @@
         <div class="push"></div>
         </div>  
         <div class="footer">
+            <div class="grid_6">
             Tarea de IA<br/>
             Integrantes: César Toro - Cristian Arteaga
+            </div>
+
+            <div id="compatible" class="grid_3 suffix_3">
+                Compatible con:
+                Mozila firefox 7.0
+                Google Crhome 16.0
+            </div>
         </div>
         
         <script type="text/javascript">
