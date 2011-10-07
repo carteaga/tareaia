@@ -28,12 +28,72 @@ body{
     margin-bottom: 1.5%;
 }
 
+table#metodo{
+    margin-top: 10px;
+}
+
+#metodo td{
+    height: 40px;
+}
+
+#metodo tr{
+}
+
+table#logtabla{
+    border-collapse:collapse;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+}
+
+#logtabla thead{
+    background: red;
+    text-align: left;
+}
+
+#logtabla th{
+    padding: 10px;
+}
+
+#logtabla tr{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#logtabla td{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+#logtabla tr:last-child th:first-child {
+-moz-border-radius-topleft:10px;
+-webkit-border-top-left-radius:10px;
+border-top-left-radius:10px}
+
+#logtabla tr:last-child th:last-child {
+-moz-border-radius-topright:10px;
+-webkit-border-top-right-radius:10px;
+border-top-right-radius:10px}
+
+#fondo{
+	background: white;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    min-height: 446px;
+}
+
+
 table#tablarobot{
-	border: 1px solid;
+	border: 10px solid;
 	width:  400px;
 	height: 400px;
-	
-	
+	background: url('../imagenes/piso.jpg');
 	/*border radius */
 	-webkit-border-radius: 12px;
     -moz-border-radius: 12px;
@@ -48,8 +108,9 @@ table#tablarobot{
 #tablarobot td{
 	width: 50px;
 	height: 50px;
-	border: 1px dashed;
+	border: 1px solid white;
 	vertical-align: middle;
+	
 }
 
 #img{
@@ -61,7 +122,7 @@ table#tablarobot{
     width: 50px;
     height: 50px;
     border: 1px dashed;
-    
+   
 }
 
 #tablero{
@@ -77,9 +138,13 @@ table#tablarobot{
 }
 
 #dashboard{
-
+    
 }
 
+#formrobot tr{
+	height: 40px;
+	
+}
 
 /* dasboard form */
 
@@ -162,14 +227,24 @@ border: rgba(0, 0, 0, .2) 1px solid;
 }
 
 /* personalización */
-.button.pequeno span {
+.button.grande span {
    font-size:23px;
 }
 
+.button.pequeno span{
+	font-size: 15px;
+}
+
+.button.azul{
+	background-color: blue;
+}
 .button.rojo {
    background-color: #e62727;
 }
 
+.button.plomo{
+	background-color: #A4A4A4;
+}
 A{
    color: #0000cc;
    text-decoration: none;
