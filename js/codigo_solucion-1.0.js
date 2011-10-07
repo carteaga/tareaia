@@ -95,6 +95,10 @@ var cuadro_nodo = function(robot_x, robot_y, objeto1_x, objeto1_y, objeto2_x, ob
     En la ruta se almacenan los operadores que llevan al robot a esa situacion.
 */
 
+
+    
+
+
 var lecturas = function() {
     this.permiso = ko.observable(true);
     this.solucion_operadores = ko.observableArray([]);
@@ -124,6 +128,7 @@ var lecturas = function() {
         this.cuadro_inicial(new cuadro_nodo(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y(),0,new Array,0));
         this.arbol.removeAll();
         this.recoger_objeto(this.cuadro_inicial());
+        this.cuadro_inicial().costo = this.costo_ruta(this.cuadro_inicial());
         this.arbol.push(this.cuadro_inicial());
         this.ruta_solucion.removeAll();
         this.solucion_operadores.removeAll();
@@ -208,8 +213,14 @@ var lecturas = function() {
         }
         return true;
     };
-    
     this.solucion = function(){
+        if(this.metodoSeleccionado()==3)
+            this.solucion_ida();
+        else
+            this.solucion_a();
+    
+    }
+    this.solucion_a = function(){
         this.cargar();
         
         this.permiso(false);
@@ -237,6 +248,145 @@ var lecturas = function() {
         //alert(ko.toJSON(this.ruta_solucion()));
         this.mostrar_solucion();
     };
+    this.estado_final = function(cuadro){
+        if(cuadro.recogido_o1&&cuadro.recogido_o2&&cuadro.recogido_o3){
+            return true;
+        }
+        return false;
+    
+    };
+    
+    this.sucesores = function(cuadro){
+        var suc = new Array;
+        var norte = this.mover_norte(cuadro);
+        if(norte){
+            suc.push(norte);
+        }
+        var sur = this.mover_sur(cuadro);
+        if(sur){
+            suc.push(sur);
+        }
+        var este = this.mover_este(cuadro);
+        if(este){
+            suc.push(este);
+        }
+        var oeste = this.mover_oeste(cuadro);
+        if(oeste){
+            suc.push(oeste);
+        }
+        return suc;
+    
+    };
+    
+    this.DFS = function(cuadro,umbral){
+        var resultado = {ruta:[],solucion:false, umbral:0};
+        var ruta = [];
+        //alert(cuadro);
+        console.log(cuadro);
+        //alert(umbral);
+        if(this.estado_final(cuadro)){
+            resultado.umbral = this.costo_ruta(cuadro);
+            resultado.solucion = true;
+            resultado.ruta = cuadro.ruta;
+            this.cuadro_solucion().g = cuadro.g;
+            this.cuadro_solucion.valueHasMutated();
+            return resultado;
+        }
+        else{
+        
+            resultado.umbral = umbral; 
+            resultado.solucion = false;
+            resultado.ruta = [];
+            var sucesores = this.sucesores(cuadro);
+            //this.arbol.push(sucesores);
+            //alert(ko.toJSON(sucesores));
+            var largo = sucesores.length;
+            //alert(largo);
+            //alert(ko.toJSON(sucesores));
+            if(!largo>0){
+                return resultado;
+            }
+            else{
+                var min_umbral = umbral;
+                var umbral_sucesor;
+                for(var i=0;i<largo;i++){
+                    //alert("i: "+(i+1)+" largo: "+(largo));
+                    var sucesor = sucesores[i];
+                    umbral_sucesor = this.costo_ruta(sucesor);
+                    //alert("umbral_sucesor: "+umbral_sucesor);
+                    if(umbral_sucesor > umbral){
+                        if(umbral == min_umbral)
+                        {
+                            min_umbral = umbral_sucesor;
+                        }else
+                        if(umbral_sucesor < min_umbral){
+                            min_umbral = umbral_sucesor;
+                        }
+                    
+                    }
+                    else{
+                        var result_suc = this.DFS(sucesor,umbral);
+                        //alert(ko.toJSON(result_suc)+"-------"+i + "---------------------"+ko.toJSON(sucesor) + "---------------------"+ ko.toJSON(sucesores));
+                        if(result_suc.solucion){
+                            resultado.solucion = true;
+                            resultado.ruta = result_suc.ruta;
+                            return resultado;
+                        
+                        }
+                        else{
+                            if((result_suc.umbral<min_umbral)&&(result_suc.umbral>umbral))
+                            {
+                                min_umbral = result_suc.umbral;
+                            
+                            }
+                        }
+                    
+                    }
+                
+                }
+                resultado.umbral = min_umbral;
+                return resultado;
+            
+            }
+        
+        
+        }
+    }
+    
+    this.solucion_ida = function(){
+        this.cargar();
+        
+        this.permiso(false);
+        var nuevo_umbral = this.costo_ruta(this.cuadro_inicial());
+        var f_umbral = nuevo_umbral -1;
+        var solucion = false;
+        while(!solucion && f_umbral<nuevo_umbral){
+            //alert(1);
+            f_umbral = nuevo_umbral; 
+            var retorna = this.DFS(this.cuadro_inicial(), f_umbral); 
+            //alert(retorna);
+            solucion = retorna.solucion;
+            this.ruta_solucion(retorna.ruta); 
+            nuevo_umbral = retorna.umbral;
+            alert("Aqui va a salir ");
+            alert("nuevo umbra: "+nuevo_umbral);
+            alert("solucion: "+solucion);
+        }
+        if(!solucion){
+            alert("No existe una solucion posible");
+            
+            this.permiso(true);
+            this.costo(retorna.costo)
+            
+            //alert(ko.toJSON(this.arbol()));
+        }
+        
+        //alert(ko.toJSON(this.ruta_solucion()));
+        this.mostrar_solucion();
+    };
+    
+
+    
     this.mover_norte_visible = function(i){
         //mover a al norte
         this.solucion_operadores.push({desc_operador:"Mover al Norte",id_operador:1,numero_operacion:i});
@@ -361,8 +511,14 @@ var lecturas = function() {
             if(this.arbol()[menor].expandido&&!this.arbol()[i].expandido){
                 var menor = i;
             }
-            if(this.arbol()[i].costo<this.arbol()[menor].costo&&!this.arbol()[i].expandido){
-                var menor = i;
+            if(this.arbol()[i].costo<=this.arbol()[menor].costo&&!this.arbol()[i].expandido){
+                if(this.arbol()[i].costo==this.arbol()[menor].costo)
+                {
+                    if(this.arbol()[i].g<this.arbol()[menor].g)
+                        var menor = i;
+                }
+                else
+                    var menor = i;
             }
         }
         return menor;
@@ -411,7 +567,20 @@ var lecturas = function() {
         return cuadro.g + heuristica;
     };
     this.costo_ruta_3 = function(cuadro){
-        return cuadro.costo + 3;
+        var heuristica = 0;
+        if(!cuadro.recogido_o1){
+            heuristica += Math.abs(cuadro.robot_x-cuadro.objeto1_x);
+            heuristica += Math.abs(cuadro.robot_y-cuadro.objeto1_y);
+        }
+        if(!cuadro.recogido_o2){
+            heuristica += Math.abs(cuadro.robot_x-cuadro.objeto2_x);
+            heuristica += Math.abs(cuadro.robot_y-cuadro.objeto2_y);
+        }
+        if(!cuadro.recogido_o3){
+            heuristica += Math.abs(cuadro.robot_x-cuadro.objeto3_x);
+            heuristica += Math.abs(cuadro.robot_y-cuadro.objeto3_y);
+        }
+        return cuadro.g + heuristica;
     
     };
     
@@ -450,6 +619,7 @@ var lecturas = function() {
             nuevo_cuadro.g = this.g(cuadro);
             nuevo_cuadro.costo = this.costo_ruta(nuevo_cuadro);
             this.arbol.push(nuevo_cuadro);
+            return nuevo_cuadro;
             
         }
         
@@ -475,6 +645,7 @@ var lecturas = function() {
             nuevo_cuadro.g = this.g(cuadro);
             nuevo_cuadro.costo = this.costo_ruta(nuevo_cuadro);
             this.arbol.push(nuevo_cuadro);
+            return nuevo_cuadro;
             
         }
         
@@ -500,6 +671,7 @@ var lecturas = function() {
             nuevo_cuadro.g = this.g(cuadro);
             nuevo_cuadro.costo = this.costo_ruta(nuevo_cuadro);
             this.arbol.push(nuevo_cuadro);
+            return nuevo_cuadro;
             
         }
         
@@ -527,6 +699,7 @@ var lecturas = function() {
             nuevo_cuadro.g = this.g(cuadro);
             nuevo_cuadro.costo = this.costo_ruta(nuevo_cuadro);
             this.arbol.push(nuevo_cuadro);
+            return nuevo_cuadro;
             
         }
         
