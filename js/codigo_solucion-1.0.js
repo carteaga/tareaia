@@ -282,7 +282,7 @@ var lecturas = function() {
         var resultado = {ruta:[],solucion:false, umbral:0};
         var ruta = [];
         //alert(cuadro);
-        console.log(cuadro);
+        console.log("altura: "+cuadro.altura+"   ("+cuadro.robot_x+","+cuadro.robot_y+","+cuadro.objeto1_x+","+cuadro.objeto1_y+","+cuadro.objeto2_x+","+cuadro.objeto2_y+","+cuadro.objeto3_x+","+cuadro.objeto3_y+","+cuadro.recogido_o1+","+cuadro.recogido_o2+","+cuadro.recogido_o3+")");
         //alert(umbral);
         if(this.estado_final(cuadro)){
             resultado.umbral = this.costo_ruta(cuadro);
@@ -315,6 +315,8 @@ var lecturas = function() {
                     umbral_sucesor = this.costo_ruta(sucesor);
                     //alert("umbral_sucesor: "+umbral_sucesor);
                     if(umbral_sucesor > umbral){
+                        alert(i);
+                        console.log("alturas: "+cuadro.altura+"   ("+sucesor.robot_x+","+sucesor.robot_y+","+sucesor.objeto1_x+","+sucesor.objeto1_y+","+sucesor.objeto2_x+","+sucesor.objeto2_y+","+sucesor.objeto3_x+","+sucesor.objeto3_y+","+sucesor.recogido_o1+","+sucesor.recogido_o2+","+sucesor.recogido_o3+")");
                         if(umbral == min_umbral)
                         {
                             min_umbral = umbral_sucesor;
@@ -358,6 +360,8 @@ var lecturas = function() {
         
         this.permiso(false);
         var nuevo_umbral = this.costo_ruta(this.cuadro_inicial());
+        //Esto es para que el umbral comience en 0
+        //var nuevo_umbral = 0;
         var f_umbral = nuevo_umbral -1;
         var solucion = false;
         while(!solucion && f_umbral<nuevo_umbral){
