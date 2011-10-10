@@ -419,14 +419,14 @@ var lecturas = function() {
     this.mover_sur_visible = function(i){
         //mover a al Sur
         this.solucion_operadores.push({desc_operador:"Mover al Sur",id_operador:2,numero_operacion:i});
-        this.cuadro_visible().robot_x(this.cuadro_visible().robot_x()+1);
+        this.cuadro_visible().robot_x(parseInt(this.cuadro_visible().robot_x())+1);
         
         if(this.cuadro_visible().recogido_o1())
-            this.cuadro_visible().objeto1_x(this.cuadro_visible().objeto1_x()+1);
+            this.cuadro_visible().objeto1_x(parseInt(this.cuadro_visible().objeto1_x())+1);
         if(this.cuadro_visible().recogido_o2())
-            this.cuadro_visible().objeto2_x(this.cuadro_visible().objeto2_x()+1);
+            this.cuadro_visible().objeto2_x(parseInt(this.cuadro_visible().objeto2_x())+1);
         if(this.cuadro_visible().recogido_o3())
-            this.cuadro_visible().objeto3_x(this.cuadro_visible().objeto3_x()+1);
+            this.cuadro_visible().objeto3_x(parseInt(this.cuadro_visible().objeto3_x())+1);
         
         this.recoger_objeto_visible(this.cuadro_visible(),i);
         this.cuadro_visible.valueHasMutated();
@@ -434,14 +434,14 @@ var lecturas = function() {
     this.mover_este_visible = function(i){
         //mover a al Este
         this.solucion_operadores.push({desc_operador:"Mover al Este",id_operador:3,numero_operacion:i});
-        this.cuadro_visible().robot_y(this.cuadro_visible().robot_y()+1);
+        this.cuadro_visible().robot_y(parseInt(this.cuadro_visible().robot_y())+1);
         
         if(this.cuadro_visible().recogido_o1())
-            this.cuadro_visible().objeto1_y(this.cuadro_visible().objeto1_y()+1);
+            this.cuadro_visible().objeto1_y(parseInt(this.cuadro_visible().objeto1_y())+1);
         if(this.cuadro_visible().recogido_o2())
-            this.cuadro_visible().objeto2_y(this.cuadro_visible().objeto2_y()+1);
+            this.cuadro_visible().objeto2_y(parseInt(this.cuadro_visible().objeto2_y())+1);
         if(this.cuadro_visible().recogido_o3())
-            this.cuadro_visible().objeto3_y(this.cuadro_visible().objeto3_y()+1);
+            this.cuadro_visible().objeto3_y(parseInt(this.cuadro_visible().objeto3_y())+1);
         
         this.recoger_objeto_visible(this.cuadro_visible(),i);
         this.cuadro_visible.valueHasMutated();
