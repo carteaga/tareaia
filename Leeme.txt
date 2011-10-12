@@ -1,0 +1,5 @@
+El código para resolver el problema esta en la carpeta js,
+en el archivo codigo_solucion-1.0.js.
+
+Es compatible con los navegadores Chrome y Firefox (probado en las ultimas versiones de estos).
+Ya que posee CSS3.
