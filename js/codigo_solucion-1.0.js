@@ -144,6 +144,12 @@ var lecturas = function() {
     };
     
     this.datos_correctos = function(){
+        //alert(parseInt(this.robot_x(),10));
+        if(isNaN(this.robot_x())||isNaN(this.robot_y())||isNaN(this.objeto1_x())||isNaN(this.objeto1_y())||isNaN(this.objeto2_x())||isNaN(this.objeto2_y())||isNaN(this.objeto3_x())||isNaN(this.objeto3_y()))
+        {
+            alert("Solo se permite introducir numeros");
+            return false;
+        }
         if(this.robot_x()<=0){
             alert("La fila del robot debe ser mayor a 0");
             return false;
@@ -487,21 +493,21 @@ var lecturas = function() {
             if(cuadro.robot_x()==cuadro.objeto1_x()&&cuadro.robot_y()==cuadro.objeto1_y())
             {
                 cuadro.recogido_o1(true);
-                this.solucion_operadores.push({desc_operador:"Recoger Objeto 1",id_operador:5,numero_operacion:i});
+                //this.solucion_operadores.push({desc_operador:"Recoger Objeto 1",id_operador:5,numero_operacion:i});
             }
                 
         if(!cuadro.recogido_o2())
             if(cuadro.robot_x()==cuadro.objeto2_x()&&cuadro.robot_y()==cuadro.objeto2_y())
             {
                 cuadro.recogido_o2(true);
-                this.solucion_operadores.push({desc_operador:"Recoger Objeto 2",id_operador:5,numero_operacion:i});
+                //this.solucion_operadores.push({desc_operador:"Recoger Objeto 2",id_operador:5,numero_operacion:i});
             }
                 
         if(!cuadro.recogido_o3())
             if(cuadro.robot_x()==cuadro.objeto3_x()&&cuadro.robot_y()==cuadro.objeto3_y())
             {
                 cuadro.recogido_o3(true);
-                this.solucion_operadores.push({desc_operador:"Recoger Objeto 3",id_operador:5,numero_operacion:i});
+                //this.solucion_operadores.push({desc_operador:"Recoger Objeto 3",id_operador:5,numero_operacion:i});
             }
     };
     
