@@ -125,7 +125,8 @@ var lecturas = function() {
     this.arbol.push(this.cuadro_inicial());
     this.cargar = function(){
         this.permiso(false);
-        this.cuadro_inicial(new cuadro_nodo(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y(),0,new Array,0));
+        this.cuadro_inicial(new cuadro_nodo(parseInt( this.robot_x() ), parseInt( this.robot_y() ), parseInt( this.objeto1_x() ), parseInt( this.objeto1_y() )
+        		, parseInt( this.objeto2_x() ), parseInt( this.objeto2_y() ), parseInt( this.objeto3_x() ), parseInt( this.objeto3_y() ),0,new Array,0));
         this.arbol.removeAll();
         this.recoger_objeto(this.cuadro_inicial());
         this.cuadro_inicial().costo = this.costo_ruta(this.cuadro_inicial());
@@ -136,7 +137,8 @@ var lecturas = function() {
         this.recogido_o1(false);
         this.recogido_o2(false);
         this.recogido_o3(false);
-        this.cuadro_visible(new cuadro_visual(this.robot_x(),this.robot_y(),this.objeto1_x(),this.objeto1_y(),this.objeto2_x(),this.objeto2_y(), this.objeto3_x(), this.objeto3_y()));
+        this.cuadro_visible(new cuadro_visual(parseInt( this.robot_x() ), parseInt( this.robot_y() ), parseInt( this.objeto1_x() ), parseInt( this.objeto1_y() )
+        		, parseInt( this.objeto2_x() ), parseInt( this.objeto2_y() ), parseInt( this.objeto3_x() ), parseInt( this.objeto3_y() )));
         this.recoger_objeto_visible(this.cuadro_visible());
         //alert(ko.toJSON(this));
         
